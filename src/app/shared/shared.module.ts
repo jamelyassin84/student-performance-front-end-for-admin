@@ -11,6 +11,9 @@ import { FuseCardModule } from '@fuse/components/card';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatSelectModule } from '@angular/material/select';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { AppHeaderComponent } from 'app/components/app-header/app-header.component';
+
+const components = [AppHeaderComponent];
 
 const modules = [
     CommonModule,
@@ -34,8 +37,8 @@ const pipes = [];
 const directives = [];
 
 @NgModule({
-    declarations: [],
+    declarations: [...components],
     imports: [...modules],
-    exports: [...modules],
+    exports: [...modules, ...components],
 })
 export class SharedModule {}
