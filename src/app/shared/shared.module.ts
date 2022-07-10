@@ -1,3 +1,4 @@
+import { MatMenuModule } from '@angular/material/menu';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ const modules = [
     FuseAlertModule,
     MatSelectModule,
     NgApexchartsModule,
+    MatMenuModule,
 ];
 
 const pipes = [];
