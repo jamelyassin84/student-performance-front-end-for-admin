@@ -7,4 +7,81 @@
             icon="mat_outline:drive_file_rename_outline"
         ></app-header>
     </div>
+
+    <ul class="flex flex-wrap bg-white">
+        <li role="button" class="px-10 py-3 bg-teal-500 text-white">
+            Grit Scale
+        </li>
+        <li role="button" class="px-10 py-3 hover:bg-gray-200">
+            Time Management Questions
+        </li>
+
+        <li role="button" class="px-10 py-3 hover:bg-gray-200">
+            Self Efficacy Questions
+        </li>
+
+        <li role="button" class="px-10 py-3 hover:bg-gray-200">
+            Self Regulation Questions
+        </li>
+
+        <li class="ml-auto">
+            <button
+                class="text-white bg-amber-500 px-10 py-3 hover:bg-amber-600"
+            >
+                Add Form
+            </button>
+        </li>
+    </ul>
+
+    <div
+        class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-none overflow-hidden"
+    >
+        <div class="flex flex-col flex-auto mt-5 overflow-x-auto">
+            <table class="min-w-240 overflow-y-visible">
+                <thead>
+                    <tr>
+                        <th class="text-zinc-900/50">Title</th>
+                        <th class="text-zinc-900/50">Question</th>
+                        <th class="text-zinc-900/50">Type</th>
+                        <th class="text-zinc-900/50">Show on Website</th>
+                        <th>
+                            <button
+                                class="text-white bg-teal-500 px-10 py-3 hover:bg-teal-600"
+                            >
+                                Change all to radio
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody [@listAnimation]="5">
+                    <tr
+                        *ngFor="let order of [1, 2, 3, 4, 5, 6]"
+                        class="border-t border-zinc-200 text-center hover:bg-slate-50"
+                    >
+                        <td>Distraction</td>
+                        <td>
+                            New ideas and projects sometimes distract me from
+                            previous ones.
+                        </td>
+                        <td>Negative Question</td>
+                        <td class="text-emerald-500">Yes</td>
+                        <td>
+                            <button mat-button [matMenuTriggerFor]="menu">
+                                <mat-icon
+                                    svgIcon="mat_outline:more_horiz"
+                                ></mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item>Hide on WEbsite</button>
+
+                                <button (click)="remove('0')" mat-menu-item>
+                                    Remove
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
