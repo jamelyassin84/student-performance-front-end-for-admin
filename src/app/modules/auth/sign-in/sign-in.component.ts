@@ -18,7 +18,7 @@ export class AuthSignInComponent implements OnInit {
         type: 'success',
         message: '',
     };
-    signInForm: FormGroup;
+    form: FormGroup;
     showAlert: boolean = false;
 
     /**
@@ -40,7 +40,7 @@ export class AuthSignInComponent implements OnInit {
      */
     ngOnInit(): void {
         // Create the form
-        this.signInForm = this._formBuilder.group({
+        this.form = this._formBuilder.group({
             email: [
                 'admin@cpu.edu.ph',
                 [Validators.required, Validators.email],
@@ -59,18 +59,18 @@ export class AuthSignInComponent implements OnInit {
      */
     signIn(): void {
         // Return if the form is invalid
-        if (this.signInForm.invalid) {
+        if (this.form.invalid) {
             return;
         }
 
         // Disable the form
-        this.signInForm.disable();
+        this.form.disable();
 
         // Hide the alert
         this.showAlert = false;
 
         // Sign in
-        this._authService.signIn(this.signInForm.value).subscribe(
+        this._authService.signIn(this.form.value).subscribe(
             () => {
                 // Set the redirect url.
                 // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
@@ -86,7 +86,7 @@ export class AuthSignInComponent implements OnInit {
             },
             (response) => {
                 // Re-enable the form
-                this.signInForm.enable();
+                this.form.enable();
 
                 // Reset the form
                 this.signInNgForm.resetForm();
