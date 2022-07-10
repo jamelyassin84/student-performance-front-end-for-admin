@@ -1,39 +1,11 @@
 /* tslint:disable:max-line-length */
 import { FuseNavigationItem } from '@fuse/components/navigation';
+import { adminTabs } from 'app/modules/admin/admin.tabs';
 
-export const defaultNavigation: FuseNavigationItem[] = [
-    {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
-];
-export const compactNavigation: FuseNavigationItem[] = [
-    {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
-];
-export const futuristicNavigation: FuseNavigationItem[] = [
-    {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
-];
-export const horizontalNavigation: FuseNavigationItem[] = [
-    {
-        id   : 'example',
-        title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
-];
+export const defaultNavigation: FuseNavigationItem[] = adminTabs;
+
+export const compactNavigation: FuseNavigationItem[] = adminTabs;
+
+export const futuristicNavigation: FuseNavigationItem[] = adminTabs;
+
+export const horizontalNavigation: FuseNavigationItem[] = adminTabs;
