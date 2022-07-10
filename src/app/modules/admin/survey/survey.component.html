@@ -26,6 +26,7 @@
 
         <li class="ml-auto">
             <button
+                (click)="addForm()"
                 class="text-white bg-emerald-500 px-10 py-3 hover:bg-emerald-600 flex items-center"
             >
                 <mat-icon class="text-white" svgIcon="add"></mat-icon>
@@ -58,8 +59,9 @@
                             </button>
 
                             <button
+                                (click)="addQuestion()"
                                 mat-icon-button
-                                matTooltip="   Add Questions"
+                                matTooltip="Add Questions"
                                 class="mx-1"
                             >
                                 <mat-icon
@@ -69,6 +71,7 @@
                             </button>
 
                             <button
+                                (click)="editQuestion()"
                                 mat-icon-button
                                 matTooltip="Edit Form Title"
                                 class="mx-1"
@@ -80,6 +83,7 @@
                             </button>
 
                             <button
+                                (click)="removeForm('Id')"
                                 mat-icon-button
                                 matTooltip="Delete Form and All Questions"
                                 class="mx-1"
@@ -113,9 +117,14 @@
                             <mat-menu #menu="matMenu">
                                 <button mat-menu-item>Hide on Website</button>
 
-                                <button mat-menu-item>Edit Question</button>
+                                <button (click)="editQuestion()" mat-menu-item>
+                                    Edit Question
+                                </button>
 
-                                <button (click)="remove('0')" mat-menu-item>
+                                <button
+                                    (click)="removeQuestion('0')"
+                                    mat-menu-item
+                                >
                                     Remove
                                 </button>
                             </mat-menu>
