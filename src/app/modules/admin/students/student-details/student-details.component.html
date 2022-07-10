@@ -7,4 +7,86 @@
             icon="account_circle"
         ></app-header>
     </div>
+
+    <div
+        @slideInLeft
+        class="bg-white border-b p-5 h-auto grid grid-cols-1 md:grid-cols-3 w-full md:gap-10"
+    >
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Email</div>
+            <div class="text-slate-800">ernest@gmail.com</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Sex</div>
+            <div class="text-slate-800">Male</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Phone</div>
+            <div class="text-slate-800">09286241875</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Department</div>
+            <div class="text-slate-800">College of Computer Studies</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Degree</div>
+            <div class="text-slate-800">Bachelor of Science</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Course</div>
+            <div class="text-slate-800">Computer Science</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Major</div>
+            <div class="text-slate-800">Software Development</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Average Grade</div>
+            <div class="text-slate-800">95</div>
+        </div>
+
+        <div class="flex w-full mb-2 flex-col">
+            <div class="text-slate-400">Average Performance</div>
+            <div class="text-slate-800">96</div>
+        </div>
+    </div>
+
+    <ul class="flex bg-white">
+        <li role="button" class="px-10 py-3 bg-teal-500 text-white">
+            Performance
+        </li>
+        <li role="button" class="px-10 py-3 hover:bg-gray-200">Grades</li>
+    </ul>
+
+    <div
+        @slideInBottom
+        class="flex flex-col w-full bg-white drop-shadow-md p-10"
+    >
+        <div class="font-bold text-xl">Psychometric Performance Summary</div>
+        <div class="text-gray-500 mb-10">Your average performance is 80</div>
+
+        <apx-chart
+            class="flex-auto w-full h-80"
+            [chart]="chart.chart"
+            [colors]="chart.colors"
+            [dataLabels]="chart.dataLabels"
+            [grid]="chart.grid"
+            [labels]="chart.labels"
+            [legend]="chart.legend"
+            [plotOptions]="chart.plotOptions"
+            [series]="chart.series"
+            [states]="chart.states"
+            [stroke]="chart.stroke"
+            [tooltip]="chart.tooltip"
+            [xaxis]="chart.xaxis"
+            [yaxis]="chart.yaxis"
+        ></apx-chart>
+    </div>
 </div>
