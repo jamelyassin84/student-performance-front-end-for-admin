@@ -1,1 +1,49 @@
-<p>survey-form-edit works!</p>
+<div [formGroup]="form" class="w-screen p-5 md:w-auto md:p-0">
+    <div class="flex border-b border-zinc-200 pb-4">
+        <h1 class="text-xl">Edit Form</h1>
+
+        <mat-icon
+            role="button"
+            mat-button
+            mat-dialog-close
+            svgIcon="feather:x"
+            class="ml-auto bi bi-x-lg text-2xl hover:text-rose-600 text-slate-900"
+        ></mat-icon>
+    </div>
+
+    <div mat-dialog-content class="mb-5 p-5 py-10">
+        <div class="w-full flex flex-col">
+            <label>Form Name</label>
+
+            <input class="border border-gray-200 px-3 py-2" />
+        </div>
+
+        <section class="example-section flex flex-col mt-5">
+            <label class="example-margin my-3">Question Type</label>
+
+            <mat-radio-group class="flex flex-col">
+                <mat-radio-button class="mb-5" value="after"
+                    >Radio
+                </mat-radio-button>
+
+                <mat-radio-button class="example-margin" value="before"
+                    >Button</mat-radio-button
+                >
+            </mat-radio-group>
+        </section>
+    </div>
+
+    <div mat-dialog-actions class="flex items-center">
+        <button class="ml-auto text-slate-400" mat-button mat-dialog-close>
+            Close
+        </button>
+
+        <button
+            (click)="save()"
+            class="ml-2 text-white border border-emerald-600 rounded-sm bg-slate-200 px-10"
+            mat-button
+        >
+            <span> Add </span>
+        </button>
+    </div>
+</div>

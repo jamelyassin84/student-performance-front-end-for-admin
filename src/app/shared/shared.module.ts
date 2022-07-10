@@ -14,6 +14,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { MatSelectModule } from '@angular/material/select';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AppHeaderComponent } from 'app/components/app-header/app-header.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 const components = [AppHeaderComponent];
 
@@ -34,6 +35,8 @@ const modules = [
     NgApexchartsModule,
     MatMenuModule,
     MatTooltipModule,
+    MatCheckboxModule,
+    MatRadioModule,
 ];
 
 const pipes = [];
