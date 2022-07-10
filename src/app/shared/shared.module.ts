@@ -1,3 +1,4 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -32,6 +33,7 @@ const modules = [
     MatSelectModule,
     NgApexchartsModule,
     MatMenuModule,
+    MatTooltipModule,
 ];
 
 const pipes = [];

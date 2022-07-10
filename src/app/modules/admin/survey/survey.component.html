@@ -26,8 +26,9 @@
 
         <li class="ml-auto">
             <button
-                class="text-white bg-amber-500 px-10 py-3 hover:bg-amber-600"
+                class="text-white bg-emerald-500 px-10 py-3 hover:bg-emerald-600 flex items-center"
             >
+                <mat-icon class="text-white" svgIcon="add"></mat-icon>
                 Add Form
             </button>
         </li>
@@ -46,9 +47,47 @@
                         <th class="text-zinc-900/50">Show on Website</th>
                         <th>
                             <button
-                                class="text-white bg-teal-500 px-10 py-3 hover:bg-teal-600"
+                                mat-icon-button
+                                matTooltip="Toggle to Radio"
+                                class="mx-1"
                             >
-                                Change all to radio
+                                <mat-icon
+                                    class="text-teal-500 hover:text-teal-600"
+                                    svgIcon="toggle_off"
+                                ></mat-icon>
+                            </button>
+
+                            <button
+                                mat-icon-button
+                                matTooltip="   Add Questions"
+                                class="mx-1"
+                            >
+                                <mat-icon
+                                    class="text-blue-500 hover:text-blue-600"
+                                    svgIcon="add"
+                                ></mat-icon>
+                            </button>
+
+                            <button
+                                mat-icon-button
+                                matTooltip="Edit Form Title"
+                                class="mx-1"
+                            >
+                                <mat-icon
+                                    class="text-amber-500 hover:text-amber-600"
+                                    svgIcon="open_in_new"
+                                ></mat-icon>
+                            </button>
+
+                            <button
+                                mat-icon-button
+                                matTooltip="Delete Form and All Questions"
+                                class="mx-1"
+                            >
+                                <mat-icon
+                                    class="t text-red-500 hover:text-red-600"
+                                    svgIcon="restore_from_trash"
+                                ></mat-icon>
                             </button>
                         </th>
                     </tr>
@@ -72,7 +111,9 @@
                                 ></mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item>Hide on WEbsite</button>
+                                <button mat-menu-item>Hide on Website</button>
+
+                                <button mat-menu-item>Edit Question</button>
 
                                 <button (click)="remove('0')" mat-menu-item>
                                     Remove
