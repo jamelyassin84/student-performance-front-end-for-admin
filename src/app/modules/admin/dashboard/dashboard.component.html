@@ -7,4 +7,79 @@
             icon="dashboard"
         ></app-header>
     </div>
+
+    <dashboard-top-cards></dashboard-top-cards>
+
+    <ul class="flex bg-white">
+        <li role="button" class="px-10 py-3 bg-teal-500 text-white">
+            Quality Performances
+        </li>
+        <li role="button" class="px-10 py-3 hover:bg-gray-200">
+            Top Students (Grades)
+        </li>
+        <li role="button" class="px-10 py-3 hover:bg-gray-200">
+            Top Students (Psychometric)
+        </li>
+        <li role="button" class="px-10 py-3 hover:bg-gray-200">
+            Candidates (Top Psychometric Performance)
+        </li>
+    </ul>
+
+    <div class="flex bg-white py-3 px-5 items-center">
+        <div class="text-2xl font-bold">Filters</div>
+
+        <div class="ml-auto">
+            <select class="px-3 py-2 border border-gray-200">
+                <option selected disabled>Select Department</option>
+                <option>All</option>
+            </select>
+        </div>
+
+        <div class="ml-5">
+            <select class="px-3 py-2 border border-gray-200">
+                <option selected disabled>Select Degree</option>
+                <option>All</option>
+            </select>
+        </div>
+
+        <div class="ml-5">
+            <select class="px-3 py-2 border border-gray-200">
+                <option selected disabled>Select Course</option>
+                <option>All</option>
+            </select>
+        </div>
+        <div class="ml-5">
+            <select class="px-3 py-2 border border-gray-200">
+                <option selected disabled>Select Major</option>
+                <option>All</option>
+            </select>
+        </div>
+    </div>
+
+    <div
+        @slideInBottom
+        class="flex flex-col w-full bg-white drop-shadow-md p-10"
+    >
+        <div class="font-bold text-xl">Quality Performances</div>
+        <div class="text-gray-500 mb-10">
+            These psychometric qualities are based on top performing students
+        </div>
+
+        <apx-chart
+            class="flex-auto w-full h-80"
+            [chart]="chart.chart"
+            [colors]="chart.colors"
+            [dataLabels]="chart.dataLabels"
+            [grid]="chart.grid"
+            [labels]="chart.labels"
+            [legend]="chart.legend"
+            [plotOptions]="chart.plotOptions"
+            [series]="chart.series"
+            [states]="chart.states"
+            [stroke]="chart.stroke"
+            [tooltip]="chart.tooltip"
+            [xaxis]="chart.xaxis"
+            [yaxis]="chart.yaxis"
+        ></apx-chart>
+    </div>
 </div>
