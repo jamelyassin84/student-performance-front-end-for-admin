@@ -46,7 +46,20 @@ export const COURSES = [
     'Major in Mathematics',
 ];
 
-export const DEPARTMENTS1 = [
+export interface Department {
+    name: string;
+    degrees: Degree[];
+}
+export interface Degree {
+    name: string;
+    courses: Course[];
+}
+export interface Course {
+    name: string;
+    majors: string[];
+}
+
+export const DEPARTMENTS1: Department[] = [
     {
         name: 'College of Arts and Sciences',
         degrees: [

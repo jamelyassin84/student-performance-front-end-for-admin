@@ -1,3 +1,4 @@
+import { EmptyPipe } from './../../@global_packages/pipes/empty.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
@@ -16,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { AppHeaderComponent } from 'app/components/app-header/app-header.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { HasDataPipe } from '@global_packages/pipes/has-data.pipe';
 
 const components = [AppHeaderComponent];
 
@@ -41,13 +43,13 @@ const modules = [
     HttpClientModule,
 ];
 
-const pipes = [];
+const pipes = [HasDataPipe, EmptyPipe];
 
 const directives = [];
 
 @NgModule({
-    declarations: [...components],
+    declarations: [...components, ...pipes],
     imports: [...modules],
-    exports: [...modules, ...components],
+    exports: [...modules, ...components, ...pipes],
 })
 export class SharedModule {}

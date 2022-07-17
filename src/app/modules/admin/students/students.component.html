@@ -12,29 +12,71 @@
         <div class="text-2xl font-bold">Filters</div>
 
         <div class="ml-auto">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                (change)="onDepartmentChange($event.target.value)"
+                *ngIf="DEPARTMENTS | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Department</option>
                 <option>All</option>
+                <option
+                    [value]="department.name"
+                    *ngFor="let department of DEPARTMENTS; trackBy: identity"
+                >
+                    {{ department.name }}
+                </option>
             </select>
         </div>
 
         <div class="ml-5">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                @expandCollapse
+                (change)="onDegreeChange($event.target.value)"
+                *ngIf="DEGREES | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Degree</option>
                 <option>All</option>
+                <option
+                    [value]="degree.name"
+                    *ngFor="let degree of DEGREES; trackBy: identity"
+                >
+                    {{ degree.name }}
+                </option>
             </select>
         </div>
 
         <div class="ml-5">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                @expandCollapse
+                (change)="onCourseChange($event.target.value)"
+                *ngIf="COURSES | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Course</option>
                 <option>All</option>
+                <option
+                    [value]="course.name"
+                    *ngFor="let course of COURSES; trackBy: identity"
+                >
+                    {{ course.name }}
+                </option>
             </select>
         </div>
         <div class="ml-5">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                @expandCollapse
+                *ngIf="MAJORS | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Major</option>
                 <option>All</option>
+                <option
+                    [value]="major"
+                    *ngFor="let major of MAJORS; trackBy: identity"
+                >
+                    {{ major }}
+                </option>
             </select>
         </div>
     </div>
@@ -75,12 +117,13 @@
                                     svgIcon="mat_outline:more_horiz"
                                 ></mat-icon>
                             </button>
+
                             <mat-menu #menu="matMenu">
                                 <button (click)="viewMore(user)" mat-menu-item>
                                     View More
                                 </button>
 
-                                <button (click)="remove('0')" mat-menu-item>
+                                <button (click)="remove(user.id)" mat-menu-item>
                                     Remove
                                 </button>
                             </mat-menu>
