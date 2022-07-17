@@ -12,16 +12,7 @@
 
     <ul class="flex bg-white">
         <li role="button" class="px-10 py-3 bg-teal-500 text-white">
-            Quality Performances
-        </li>
-        <li role="button" class="px-10 py-3 hover:bg-gray-200">
-            Top Students (Grades)
-        </li>
-        <li role="button" class="px-10 py-3 hover:bg-gray-200">
             Top Students (Psychometric)
-        </li>
-        <li role="button" class="px-10 py-3 hover:bg-gray-200">
-            Candidates (Top Psychometric Performance)
         </li>
     </ul>
 
@@ -29,29 +20,71 @@
         <div class="text-2xl font-bold">Filters</div>
 
         <div class="ml-auto">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                (change)="onDepartmentChange($event.target.value)"
+                *ngIf="DEPARTMENTS | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Department</option>
                 <option>All</option>
+                <option
+                    [value]="department.name"
+                    *ngFor="let department of DEPARTMENTS; trackBy: identity"
+                >
+                    {{ department.name }}
+                </option>
             </select>
         </div>
 
         <div class="ml-5">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                @expandCollapse
+                (change)="onDegreeChange($event.target.value)"
+                *ngIf="DEGREES | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Degree</option>
                 <option>All</option>
+                <option
+                    [value]="degree.name"
+                    *ngFor="let degree of DEGREES; trackBy: identity"
+                >
+                    {{ degree.name }}
+                </option>
             </select>
         </div>
 
         <div class="ml-5">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                @expandCollapse
+                (change)="onCourseChange($event.target.value)"
+                *ngIf="COURSES | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Course</option>
                 <option>All</option>
+                <option
+                    [value]="course.name"
+                    *ngFor="let course of COURSES; trackBy: identity"
+                >
+                    {{ course.name }}
+                </option>
             </select>
         </div>
         <div class="ml-5">
-            <select class="px-3 py-2 border border-gray-200">
+            <select
+                @expandCollapse
+                *ngIf="MAJORS | has_data"
+                class="px-3 py-2 border border-gray-200"
+            >
                 <option selected disabled>Select Major</option>
                 <option>All</option>
+                <option
+                    [value]="major"
+                    *ngFor="let major of MAJORS; trackBy: identity"
+                >
+                    {{ major }}
+                </option>
             </select>
         </div>
     </div>
@@ -65,21 +98,65 @@
             These psychometric qualities are based on top performing students
         </div>
 
-        <apx-chart
-            class="flex-auto w-full h-80"
-            [chart]="chart.chart"
-            [colors]="chart.colors"
-            [dataLabels]="chart.dataLabels"
-            [grid]="chart.grid"
-            [labels]="chart.labels"
-            [legend]="chart.legend"
-            [plotOptions]="chart.plotOptions"
-            [series]="chart.series"
-            [states]="chart.states"
-            [stroke]="chart.stroke"
-            [tooltip]="chart.tooltip"
-            [xaxis]="chart.xaxis"
-            [yaxis]="chart.yaxis"
-        ></apx-chart>
+        <div
+            class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-none overflow-hidden"
+        >
+            <div class="flex flex-col flex-auto mt-5 overflow-x-auto">
+                <table class="min-w-240 overflow-y-visible">
+                    <thead>
+                        <tr>
+                            <th class="text-zinc-900/50">Student Name</th>
+                            <th class="text-zinc-900/50">Email</th>
+                            <th class="text-zinc-900/50">Department</th>
+                            <th class="text-zinc-900/50">Degree</th>
+                            <th class="text-zinc-900/50">Course</th>
+                            <th class="text-zinc-900/50">Major</th>
+                            <th class="text-zinc-900/50">
+                                Average Performance
+                            </th>
+                            <th class="text-zinc-900/50">Completed Surveys</th>
+                        </tr>
+                    </thead>
+                    <tbody [@listAnimation]="(users$ | async).length">
+                        <tr
+                            *ngFor="let user of users$ | async"
+                            class="border-t border-zinc-200 text-center hover:bg-slate-50"
+                        >
+                            <td>{{ user.student.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.student.department }}</td>
+                            <td>{{ user.student.degree }}</td>
+                            <td>{{ user.student.course }}</td>
+                            <td>{{ user.student.major || "N/A" }}</td>
+                            <td class="text-emerald-500 font-extrabold">0</td>
+                            <td>0</td>
+                            <td>
+                                <button mat-button [matMenuTriggerFor]="menu">
+                                    <mat-icon
+                                        svgIcon="mat_outline:more_horiz"
+                                    ></mat-icon>
+                                </button>
+
+                                <mat-menu #menu="matMenu">
+                                    <button
+                                        (click)="viewMore(user)"
+                                        mat-menu-item
+                                    >
+                                        View More
+                                    </button>
+
+                                    <button
+                                        (click)="remove(user.id)"
+                                        mat-menu-item
+                                    >
+                                        Remove
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

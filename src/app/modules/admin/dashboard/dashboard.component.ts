@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dbwAnimations } from '@global_packages/animations/animation.api';
+import { Course, Degree, DEPARTMENTS1 } from 'app/app-core/app.constants';
+import { StudentService } from 'app/app-core/services/student.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -8,103 +10,48 @@ import { dbwAnimations } from '@global_packages/animations/animation.api';
     animations: [...dbwAnimations],
 })
 export class DashboardComponent implements OnInit {
-    constructor() {}
+    constructor(private _studentService: StudentService) {}
 
-    ngOnInit(): void {}
+    users$ = this._studentService.users$;
 
-    chart = {
-        chart: {
-            fontFamily: 'inherit',
-            foreColor: 'inherit',
-            height: '100%',
-            type: 'bar',
-            toolbar: {
-                show: false,
-            },
-            zoom: {
-                enabled: false,
-            },
-        },
-        colors: ['#14B8A6', '#14B8A6'],
-        dataLabels: {
-            enabled: true,
-            enabledOnSeries: [0],
-            background: {
-                borderWidth: 0,
-            },
-        },
-        grid: {
-            borderColor: 'var(--fuse-border)',
-        },
-        labels: [
-            'Innovation',
-            'Dont give easily on setbacks',
-            'Not Goal Oriented',
-            'Hard working',
-            'Difficulty Focusing on Projects',
-            'Completion',
-            'Changing interest',
-        ],
-        legend: {
-            show: false,
-        },
-        plotOptions: {
-            bar: {
-                columnWidth: '50%',
-            },
-        },
-        series: [
-            {
-                name: '1',
-                data: [
-                    { x: 'Innovation', y: [80] },
-                    { x: 'Dont give easily on setbacks', y: [79] },
-                    { x: 'Not Goal Oriented', y: [78] },
-                    { x: 'Hard working', y: [77] },
-                    { x: 'Difficulty Focusing on Projects', y: [76] },
-                    { x: 'Completion', y: [53] },
-                    { x: 'Changing interest', y: [42] },
-                ],
-            },
-        ],
-        states: {
-            hover: {
-                filter: {
-                    type: 'darken',
-                    value: 0.75,
-                },
-            },
-        },
-        stroke: {
-            width: [3, 0],
-        },
-        tooltip: {
-            followCursor: true,
-            theme: 'dark',
-        },
-        xaxis: {
-            axisBorder: {
-                show: false,
-            },
-            axisTicks: {
-                color: 'var(--fuse-border)',
-            },
-            labels: {
-                style: {
-                    colors: 'var(--fuse-text-secondary)',
-                },
-            },
-            tooltip: {
-                enabled: false,
-            },
-        },
-        yaxis: {
-            labels: {
-                offsetX: -16,
-                style: {
-                    colors: 'var(--fuse-text-secondary)',
-                },
-            },
-        },
-    };
+    DEPARTMENTS = DEPARTMENTS1;
+
+    DEGREES: Degree[] = [];
+
+    COURSES: Course[] = [];
+
+    MAJORS: string[] = [];
+
+    ngOnInit(): void {
+        this.getUsers();
+    }
+
+    getUsers() {
+        this._studentService
+            .get()
+            .subscribe((users) => this.users$.next(users));
+    }
+
+    onDepartmentChange(data: string) {
+        this.COURSES = [];
+        this.MAJORS = [];
+        this.DEGREES = DEPARTMENTS1.find(
+            (department) => department.name === data
+        ).degrees;
+    }
+
+    onDegreeChange(data: string) {
+        this.COURSES = [];
+        this.MAJORS = [];
+        this.COURSES = this.DEGREES.find(
+            (degree) => degree.name === data
+        ).courses;
+    }
+
+    onCourseChange(data: string) {
+        this.MAJORS = [];
+        this.MAJORS = this.COURSES.find(
+            (course) => course.name === data
+        ).majors;
+    }
 }
