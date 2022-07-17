@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgModule } from '@angular/core';
@@ -37,6 +38,7 @@ const modules = [
     MatTooltipModule,
     MatCheckboxModule,
     MatRadioModule,
+    HttpClientModule,
 ];
 
 const pipes = [];

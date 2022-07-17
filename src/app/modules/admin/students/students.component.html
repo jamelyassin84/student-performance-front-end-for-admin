@@ -3,7 +3,7 @@
         <app-header
             class="w-full"
             pageTitle="Students"
-            subtitle="List of students that participated on Surveys"
+            subtitle="List of students that registered in the system"
             icon="account_circle"
         ></app-header>
     </div>
@@ -53,24 +53,22 @@
                         <th class="text-zinc-900/50">Course</th>
                         <th class="text-zinc-900/50">Major</th>
                         <th class="text-zinc-900/50">Average Performance</th>
-                        <th class="text-zinc-900/50">Average Grade</th>
                         <th class="text-zinc-900/50">Completed Surveys</th>
                     </tr>
                 </thead>
-                <tbody [@listAnimation]="5">
+                <tbody [@listAnimation]="(users$ | async).length">
                     <tr
-                        *ngFor="let order of [1, 2, 3, 4, 5, 6]"
+                        *ngFor="let user of users$ | async"
                         class="border-t border-zinc-200 text-center hover:bg-slate-50"
                     >
-                        <td>Ernest</td>
-                        <td>ernest@gmail.com</td>
-                        <td>College of Computer Studies</td>
-                        <td>Bachelor of Science</td>
-                        <td>Computer Science</td>
-                        <td>Software Development</td>
-                        <td class="text-emerald-500 font-extrabold">95</td>
-                        <td class="text-emerald-500 font-extrabold">91</td>
-                        <td>2</td>
+                        <td>{{ user.student.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.student.department }}</td>
+                        <td>{{ user.student.degree }}</td>
+                        <td>{{ user.student.course }}</td>
+                        <td>{{ user.student.major || "N/A" }}</td>
+                        <td class="text-emerald-500 font-extrabold">0</td>
+                        <td>0</td>
                         <td>
                             <button mat-button [matMenuTriggerFor]="menu">
                                 <mat-icon
@@ -78,9 +76,9 @@
                                 ></mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <a routerLink="/students/asdasdsd" mat-menu-item
-                                    >View More</a
-                                >
+                                <button (click)="viewMore(user)" mat-menu-item>
+                                    View More
+                                </button>
 
                                 <button (click)="remove('0')" mat-menu-item>
                                     Remove

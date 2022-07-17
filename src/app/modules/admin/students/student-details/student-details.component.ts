@@ -1,3 +1,4 @@
+import { StudentService } from './../../../../app-core/services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { dbwAnimations } from '@global_packages/animations/animation.api';
 
@@ -8,7 +9,9 @@ import { dbwAnimations } from '@global_packages/animations/animation.api';
     animations: [...dbwAnimations],
 })
 export class StudentDetailsComponent implements OnInit {
-    constructor() {}
+    constructor(private _studentService: StudentService) {}
+
+    user$ = this._studentService.user$;
 
     ngOnInit(): void {}
 
@@ -49,14 +52,14 @@ export class StudentDetailsComponent implements OnInit {
             {
                 name: '1',
                 data: [
-                    { x: '1st Yr - 1st Sem', y: [95] },
-                    { x: '1st Yr - 2nd Sem', y: [80] },
-                    { x: '2nd Yr - 1st Sem', y: [42] },
-                    { x: '2nd Yr - 2nd Sem', y: [31] },
-                    { x: '3rd Yr - 1st Sem', y: [45] },
-                    { x: '3rd Yr - 2nd Sem', y: [56] },
-                    { x: '4th Yr - 1st Sem', y: [78] },
-                    { x: '4th Yr - 2nd Sem', y: [78] },
+                    { x: '1st Yr - 1st Sem', y: [0] },
+                    { x: '1st Yr - 2nd Sem', y: [0] },
+                    { x: '2nd Yr - 1st Sem', y: [0] },
+                    { x: '2nd Yr - 2nd Sem', y: [0] },
+                    { x: '3rd Yr - 1st Sem', y: [0] },
+                    { x: '3rd Yr - 2nd Sem', y: [0] },
+                    { x: '4th Yr - 1st Sem', y: [0] },
+                    { x: '4th Yr - 2nd Sem', y: [0] },
                 ],
             },
         ],

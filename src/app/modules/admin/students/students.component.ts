@@ -1,6 +1,9 @@
+import { slugify } from './../../../../@global_packages/helpers/helpers';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { dbwAnimations } from '@global_packages/animations/animation.api';
+import { StudentService, User } from 'app/app-core/services/student.service';
 
 @Component({
     selector: 'app-students',
@@ -9,9 +12,31 @@ import { dbwAnimations } from '@global_packages/animations/animation.api';
     animations: [...dbwAnimations],
 })
 export class StudentsComponent implements OnInit {
-    constructor(private _confirm: FuseConfirmationService) {}
+    constructor(
+        private _confirm: FuseConfirmationService,
+        private _router: Router,
+        private _studentService: StudentService
+    ) {}
 
-    ngOnInit(): void {}
+    users$ = this._studentService.users$;
+
+    ngOnInit(): void {
+        this.getUsers();
+    }
+
+    getUsers() {
+        this._studentService
+            .get()
+            .subscribe((users) => this.users$.next(users));
+    }
+
+    viewMore(user: User) {
+        this._studentService.user$.next(user);
+
+        this._router.navigate([`students/${slugify(user.student.name)}`]);
+
+        localStorage.setItem('user', JSON.stringify(user));
+    }
 
     remove(id: string) {
         this._confirm.open({

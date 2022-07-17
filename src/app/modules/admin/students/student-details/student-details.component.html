@@ -1,9 +1,9 @@
-<div class="flex flex-col w-full">
+<div *ngIf="user$ | async as user" class="flex flex-col w-full">
     <div @slideInTop class="flex flex-col w-full">
         <app-header
             class="w-full"
-            pageTitle="Ernest Sandoval"
-            subtitle="Here is the summary of Ernest Sandoval"
+            [pageTitle]="user.student.name"
+            [subtitle]="'Here is the summary of ' + user.student.name"
             icon="account_circle"
         ></app-header>
     </div>
@@ -14,47 +14,42 @@
     >
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Email</div>
-            <div class="text-slate-800">ernest@gmail.com</div>
+            <div class="text-slate-800">{{ user.email }}</div>
         </div>
 
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Sex</div>
-            <div class="text-slate-800">Male</div>
+            <div class="text-slate-800">{{ user.student.sex }}</div>
         </div>
 
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Phone</div>
-            <div class="text-slate-800">09286241875</div>
+            <div class="text-slate-800">{{ user.student.phone }}</div>
         </div>
 
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Department</div>
-            <div class="text-slate-800">College of Computer Studies</div>
+            <div class="text-slate-800">{{ user.student.department }}</div>
         </div>
 
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Degree</div>
-            <div class="text-slate-800">Bachelor of Science</div>
+            <div class="text-slate-800">{{ user.student.degree }}</div>
         </div>
 
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Course</div>
-            <div class="text-slate-800">Computer Science</div>
+            <div class="text-slate-800">{{ user.student.course }}</div>
         </div>
 
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Major</div>
-            <div class="text-slate-800">Software Development</div>
-        </div>
-
-        <div class="flex w-full mb-2 flex-col">
-            <div class="text-slate-400">Average Grade</div>
-            <div class="text-slate-800">95</div>
+            <div class="text-slate-800">{{ user.student.major || "N/A" }}</div>
         </div>
 
         <div class="flex w-full mb-2 flex-col">
             <div class="text-slate-400">Average Performance</div>
-            <div class="text-slate-800">96</div>
+            <div class="text-slate-800">0</div>
         </div>
     </div>
 
@@ -62,7 +57,6 @@
         <li role="button" class="px-10 py-3 bg-teal-500 text-white">
             Performance
         </li>
-        <li role="button" class="px-10 py-3 hover:bg-gray-200">Grades</li>
     </ul>
 
     <div
@@ -70,7 +64,7 @@
         class="flex flex-col w-full bg-white drop-shadow-md p-10"
     >
         <div class="font-bold text-xl">Psychometric Performance Summary</div>
-        <div class="text-gray-500 mb-10">Your average performance is 80</div>
+        <div class="text-gray-500 mb-10">Average performance is 0</div>
 
         <apx-chart
             class="flex-auto w-full h-80"
