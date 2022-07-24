@@ -1,7 +1,9 @@
+import { Analytics } from './../../../app-core/store/analytics/analytics.model';
 import { Component, OnInit } from '@angular/core';
 import { dbwAnimations } from '@global_packages/animations/animation.api';
 import { Course, Degree, DEPARTMENTS1 } from 'app/app-core/app.constants';
 import { StudentService } from 'app/app-core/services/student.service';
+import { AnalyticsService } from 'app/app-core/store/analytics/analytics.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,7 +12,10 @@ import { StudentService } from 'app/app-core/services/student.service';
     animations: [...dbwAnimations],
 })
 export class DashboardComponent implements OnInit {
-    constructor(private _studentService: StudentService) {}
+    constructor(
+        private _studentService: StudentService,
+        private _analyticsService: AnalyticsService
+    ) {}
 
     users$ = this._studentService.users$;
 
@@ -22,8 +27,18 @@ export class DashboardComponent implements OnInit {
 
     MAJORS: string[] = [];
 
+    analytics?: Analytics;
+
     ngOnInit(): void {
         this.getUsers();
+
+        this.getAnalytics();
+    }
+
+    getAnalytics() {
+        this._analyticsService
+            .get()
+            .subscribe((analytics: any) => (this.analytics = analytics));
     }
 
     getUsers() {

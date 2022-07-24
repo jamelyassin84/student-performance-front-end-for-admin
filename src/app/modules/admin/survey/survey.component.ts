@@ -40,6 +40,44 @@ export class SurveyComponent implements OnInit {
                 this.forms.push(data);
             });
 
+        this._surveyFormService.editedData$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((data) => {
+                const form = this.forms.find((form) => form.id === data.id);
+
+                const formIndex = this.forms.findIndex(
+                    (form) => form.id === data.id
+                );
+
+                this.forms[formIndex] = { ...data, questions: form.questions };
+            });
+
+        this._surveyQuestionService.editedData$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((data) => {
+                this.forms.forEach((form) => {
+                    if (form.id === data.survey_form_id) {
+                        let questions = form.questions;
+
+                        const questionIndex = form.questions.findIndex(
+                            (question) => question.id === data.id
+                        );
+
+                        const question = form.questions.find(
+                            (question) => question.id === data.id
+                        );
+
+                        questions[questionIndex] = data;
+
+                        const index = this.forms.findIndex(
+                            (formValue) => formValue.id === data.survey_form_id
+                        );
+
+                        this.forms[index].questions = questions;
+                    }
+                });
+            });
+
         this._surveyQuestionService.addedData$
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((newSurveyQuestion) => {

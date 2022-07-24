@@ -19,6 +19,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { AppHeaderComponent } from 'app/components/app-header/app-header.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { HasDataPipe } from '@global_packages/pipes/has-data.pipe';
+import { ToAveragePerformancePipe } from 'app/app-core/pipes/to-avarage-perfromance.pipe';
 
 const components = [AppHeaderComponent];
 
@@ -46,7 +47,7 @@ const modules = [
     MatButtonModule,
 ];
 
-const pipes = [HasDataPipe, EmptyPipe];
+const pipes = [HasDataPipe, EmptyPipe, ToAveragePerformancePipe];
 
 const directives = [];
 

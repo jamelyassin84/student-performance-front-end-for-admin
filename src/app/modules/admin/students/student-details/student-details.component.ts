@@ -1,6 +1,9 @@
 import { StudentService } from './../../../../app-core/services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { dbwAnimations } from '@global_packages/animations/animation.api';
+import { SurveyPerformanceService } from 'app/app-core/store/performance/performance.service';
+import { StudentPerformance } from 'app/app-core/store/performance/performance.model';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'app-student-details',
@@ -9,11 +12,12 @@ import { dbwAnimations } from '@global_packages/animations/animation.api';
     animations: [...dbwAnimations],
 })
 export class StudentDetailsComponent implements OnInit {
-    constructor(private _studentService: StudentService) {}
+    constructor(
+        private _studentService: StudentService,
+        private _surveyPerformanceService: SurveyPerformanceService
+    ) {}
 
     user$ = this._studentService.user$;
-
-    ngOnInit(): void {}
 
     chart = {
         chart: {
@@ -103,4 +107,46 @@ export class StudentDetailsComponent implements OnInit {
             },
         },
     };
+
+    performances: StudentPerformance[] = [];
+
+    averagePerformance: number = 0;
+
+    ngOnInit(): void {
+        this.getPerformances();
+    }
+
+    identity = (item: any) => item;
+
+    SPLIT_VALUE = ' - ';
+
+    getPerformances() {
+        this._studentService.user$.pipe(take(1)).subscribe((user) => {
+            this._surveyPerformanceService
+                .query(`?student_id=${user.student.id}`)
+                .subscribe((performances: StudentPerformance[]) => {
+                    let total = 0;
+
+                    performances.forEach((performance) => {
+                        this.chart.series[0].data.forEach(
+                            (dataset, datasetIndex) => {
+                                if (
+                                    `${performance.year_level} Yr${this.SPLIT_VALUE}${performance.semester} Sem` ===
+                                    dataset.x
+                                ) {
+                                    this.chart.series[0].data[datasetIndex].y =
+                                        [performance.performance];
+                                }
+                            }
+                        );
+
+                        total += performance.performance;
+                    });
+
+                    this.averagePerformance = total / performances.length;
+
+                    this.performances = performances;
+                });
+        });
+    }
 }

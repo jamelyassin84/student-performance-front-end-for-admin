@@ -38,8 +38,10 @@ export class SurveyFormEditComponent implements OnInit {
         this._surveyFormService
             .update(this.form.value.id, this.form.value)
             .subscribe({
-                next: () => {
-                    alert('Updated');
+                next: (data) => {
+                    this._surveyFormService.edit(data);
+
+                    document.getElementById('close-btn')?.click();
                 },
                 error: () => {
                     alert('Network Error');

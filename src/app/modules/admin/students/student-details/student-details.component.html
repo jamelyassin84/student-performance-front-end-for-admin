@@ -67,6 +67,8 @@
         <div class="text-gray-500 mb-10">Average performance is 0</div>
 
         <apx-chart
+            @slideInBottom
+            *ngIf="performances.length !== 0"
             class="flex-auto w-full h-80"
             [chart]="chart.chart"
             [colors]="chart.colors"

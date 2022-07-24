@@ -12,10 +12,16 @@ export class SurveyFormService extends BaseService<any> {
 
     addedData$: Subject<SurveyForm> = new Subject();
 
+    editedData$: Subject<SurveyForm> = new Subject();
+
     current$: BehaviorSubject<SurveyForm | null> =
         new BehaviorSubject<SurveyForm | null>(null);
 
     add(data: SurveyForm) {
         this.addedData$.next(data);
+    }
+
+    edit(data: SurveyForm) {
+        this.editedData$.next(data);
     }
 }

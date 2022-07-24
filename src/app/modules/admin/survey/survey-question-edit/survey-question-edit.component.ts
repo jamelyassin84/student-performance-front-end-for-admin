@@ -50,8 +50,10 @@ export class SurveyQuestionEditComponent implements OnInit {
                     survey_form_id: form.id,
                 })
                 .subscribe({
-                    next: () => {
-                        alert('Updated ');
+                    next: (data) => {
+                        this._surveyQuestionService.edit(data);
+
+                        document.getElementById('close-btn')?.click();
                     },
                     error: () => {
                         alert('Network Error');

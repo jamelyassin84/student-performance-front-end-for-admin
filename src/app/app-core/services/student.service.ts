@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '@global_packages/api/base.api';
 import { PHPBaseModel } from '@global_packages/models/core.model';
 import { BehaviorSubject, combineLatest, take } from 'rxjs';
+import { SurveyForm } from '../store/form/form.model';
 
 @Injectable({ providedIn: 'root' })
 export class StudentService extends BaseService<any> {
@@ -34,6 +35,7 @@ export interface Student extends PHPBaseModel {
     address: string;
     user_id: string;
     performances: StudentPerformance[];
+    surveys: SurveyForm;
 }
 
 export interface User extends PHPBaseModel {

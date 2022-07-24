@@ -8,7 +8,10 @@
         ></app-header>
     </div>
 
-    <dashboard-top-cards></dashboard-top-cards>
+    <dashboard-top-cards
+        *ngIf="analytics"
+        [analytics]="analytics"
+    ></dashboard-top-cards>
 
     <div
         @slideInBottom
@@ -49,8 +52,10 @@
                             <td>{{ user.student.degree }}</td>
                             <td>{{ user.student.course }}</td>
                             <td>{{ user.student.major || "N/A" }}</td>
-                            <td class="text-emerald-500 font-extrabold">0</td>
-                            <td>0</td>
+                            <td class="text-emerald-500 font-extrabold">
+                                {{ user.performances | to_average_performance }}
+                            </td>
+                            <td>{{ user.performances.length }}</td>
                             <td>
                                 <button mat-button [matMenuTriggerFor]="menu">
                                     <mat-icon
