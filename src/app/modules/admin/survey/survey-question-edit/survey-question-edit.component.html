@@ -11,36 +11,66 @@
         ></mat-icon>
     </div>
 
-    <div mat-dialog-content class="mb-5 py-10">
-        <div class="w-full flex flex-col my-3">
-            <label>Title</label>
+    <div [formGroup]="form" mat-dialog-content class="mb-5 py-10">
+        <mat-form-field class="w-full">
+            <mat-label>Title</mat-label>
 
-            <input class="border border-gray-200 px-3 py-2" />
-        </div>
+            <input id="title" matInput [formControlName]="'title'" />
 
-        <div class="w-full flex flex-col my-3">
-            <label>Question</label>
+            <mat-error *ngIf="form.get('title').hasError('required')">
+                Title is required
+            </mat-error>
+        </mat-form-field>
 
-            <textarea class="border border-gray-200 px-3 py-2"></textarea>
-        </div>
+        <mat-form-field class="w-full">
+            <mat-label>Question</mat-label>
 
-        <div class="w-full flex flex-col my-3">
-            <label>Type</label>
+            <textarea
+                id="question"
+                matInput
+                [formControlName]="'question'"
+            ></textarea>
 
-            <select class="border border-gray-200 px-3 py-2">
-                <option>Positive</option>
-                <option>Negative</option>
-            </select>
-        </div>
+            <mat-error *ngIf="form.get('question').hasError('required')">
+                Question is required
+            </mat-error>
+        </mat-form-field>
 
-        <div class="w-full flex flex-col my-3">
-            <label>Show on Website</label>
+        <mat-form-field class="w-full">
+            <mat-label>Type</mat-label>
 
-            <select class="border border-gray-200 px-3 py-2">
-                <option>Yes</option>
-                <option>Hide</option>
-            </select>
-        </div>
+            <mat-select
+                matInput
+                id="question_value_type"
+                [formControlName]="'question_value_type'"
+            >
+                <mat-option [value]="'positive'">Positive</mat-option>
+                <mat-option [value]="'negative'">Negative</mat-option>
+            </mat-select>
+
+            <mat-error
+                *ngIf="form.get('question_value_type').hasError('required')"
+            >
+                Type is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label>Show on Website</mat-label>
+
+            <mat-select
+                matInput
+                id="show_on_website"
+                [formControlName]="'show_on_website'"
+            >
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">Hide</mat-option>
+            </mat-select>
+
+            <mat-error *ngIf="form.get('show_on_website').hasError('required')">
+                Type is required
+            </mat-error>
+        </mat-form-field>
     </div>
 
     <div mat-dialog-actions class="flex items-center">
@@ -49,11 +79,15 @@
         </button>
 
         <button
+            [ngClass]="{
+                'bg-slate-200': !form.valid || form.disabled,
+                'bg-teal-500': form.valid && !form.disabled
+            }"
             (click)="save()"
-            class="ml-2 text-white border border-gray-200-emerald-600 rounded-sm bg-slate-200 px-10"
+            class="ml-2 text-white rounded-sm px-10"
             mat-button
         >
-            <span> Add </span>
+            <span> Update </span>
         </button>
     </div>
 </div>

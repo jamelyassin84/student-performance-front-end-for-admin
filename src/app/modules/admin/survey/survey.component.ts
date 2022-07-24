@@ -1,3 +1,4 @@
+import { SurveyQuestion } from './../../../app-core/store/questions/questions.model';
 import { hasData } from '@global_packages/helpers/helpers';
 import { SurveyFormEditComponent } from './survey-form-edit/survey-form-edit.component';
 import { SurveyParentAddComponent } from './survey-parent-add/survey-parent-add.component';
@@ -9,6 +10,8 @@ import { SurveyChildAddComponent } from './survey-child-add/survey-child-add.com
 import { SurveyQuestionEditComponent } from './survey-question-edit/survey-question-edit.component';
 import { SurveyFormService } from 'app/app-core/store/form/form.service';
 import { SurveyForm } from 'app/app-core/store/form/form.model';
+import { SurveyQuestionService } from 'app/app-core/store/questions/questions.service';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'survey',
@@ -20,7 +23,8 @@ export class SurveyComponent implements OnInit {
     constructor(
         private _modal: MatDialog,
         private _confirm: FuseConfirmationService,
-        private _surveyFormService: SurveyFormService
+        private _surveyFormService: SurveyFormService,
+        private _surveyQuestionService: SurveyQuestionService
     ) {}
 
     forms: SurveyForm[] = [];
@@ -62,7 +66,9 @@ export class SurveyComponent implements OnInit {
         });
     }
 
-    editQuestion() {
+    editQuestion(question: SurveyQuestion) {
+        this._surveyQuestionService.current$.next(question);
+
         this._modal.open(SurveyQuestionEditComponent, {
             hasBackdrop: true,
             panelClass: ['md:w-1/3', 'w-full'],
@@ -85,7 +91,53 @@ export class SurveyComponent implements OnInit {
     }
 
     removeQuestion(id: string) {
-        this._confirm.open(CONFIRM_PARAM as any);
+        this._confirm
+            .open(CONFIRM_PARAM as any)
+            .afterClosed()
+            .subscribe((result) => {
+                if (result === 'confirmed') {
+                    this._surveyQuestionService.remove(id).subscribe(() => {
+                        this.form$.pipe(take(1)).subscribe((currentForm) => {
+                            this.form$.next({
+                                ...currentForm,
+                                questions: currentForm.questions.filter(
+                                    (form) => form.id !== id
+                                ),
+                            });
+                        });
+                    });
+                }
+            });
+    }
+
+    hideOnWebsite(question: SurveyQuestion) {
+        this._surveyFormService.current$.pipe(take(1)).subscribe((form) => {
+            this._surveyQuestionService
+                .update(question.id, {
+                    show_on_website: !question.show_on_website,
+                })
+                .subscribe({
+                    next: () => {
+                        let surveyQuestions = form.questions;
+
+                        const index = surveyQuestions.findIndex(
+                            (surveyQuestion) =>
+                                surveyQuestion.id === question.id
+                        );
+
+                        surveyQuestions[index].show_on_website =
+                            !question.show_on_website;
+
+                        this.form$.next({
+                            ...form,
+                            questions: surveyQuestions,
+                        });
+                    },
+                    error: () => {
+                        alert('Network Error');
+                    },
+                });
+        });
     }
 }
 

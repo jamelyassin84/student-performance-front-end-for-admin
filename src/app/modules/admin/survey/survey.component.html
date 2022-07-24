@@ -95,33 +95,55 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody [@listAnimation]="5">
+                <tbody
+                    *ngIf="currentForm.questions.length !== 0"
+                    [@listAnimation]="5"
+                >
                     <tr
-                        *ngFor="let order of [1, 2, 3, 4, 5, 6]"
+                        *ngFor="let question of currentForm.questions"
                         class="border-t border-zinc-200 text-center hover:bg-slate-50"
                     >
-                        <td>Distraction</td>
-                        <td>
-                            New ideas and projects sometimes distract me from
-                            previous ones.
+                        <td>{{ question.title }}</td>
+                        <td>{{ question.question }}</td>
+                        <td>{{ question.question_value_type }}</td>
+                        <td
+                            [ngClass]="{
+                                'text-emerald-500': question.show_on_website,
+                                'text-rose-500': !question.show_on_website
+                            }"
+                        >
+                            {{ question.show_on_website ? "Yes" : "Hidden" }}
                         </td>
-                        <td>Negative Question</td>
-                        <td class="text-emerald-500">Yes</td>
+
                         <td>
                             <button mat-button [matMenuTriggerFor]="menu">
                                 <mat-icon
                                     svgIcon="mat_outline:more_horiz"
                                 ></mat-icon>
                             </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item>Hide on Website</button>
 
-                                <button (click)="editQuestion()" mat-menu-item>
+                            <mat-menu #menu="matMenu">
+                                <button
+                                    (click)="hideOnWebsite(question)"
+                                    mat-menu-item
+                                >
+                                    {{
+                                        !question.show_on_website
+                                            ? "Show"
+                                            : "Hide"
+                                    }}
+                                    on Website
+                                </button>
+
+                                <button
+                                    (click)="editQuestion(question)"
+                                    mat-menu-item
+                                >
                                     Edit Question
                                 </button>
 
                                 <button
-                                    (click)="removeQuestion('0')"
+                                    (click)="removeQuestion(question.id)"
                                     mat-menu-item
                                 >
                                     Remove
