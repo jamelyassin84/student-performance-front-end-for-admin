@@ -110,6 +110,17 @@ export class SurveyComponent implements OnInit {
             });
     }
 
+    toggleRadio(form: SurveyForm) {
+        this._surveyFormService
+            .update(form.id, {
+                question_type:
+                    form.question_type === 'button' ? 'radio' : 'button',
+            })
+            .subscribe((data) => {
+                this.form$.next({ ...data, questions: form.questions });
+            });
+    }
+
     hideOnWebsite(question: SurveyQuestion) {
         this._surveyFormService.current$.pipe(take(1)).subscribe((form) => {
             this._surveyQuestionService

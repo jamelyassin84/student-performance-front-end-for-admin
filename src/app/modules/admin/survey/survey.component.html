@@ -47,13 +47,23 @@
                         <th class="text-zinc-900/50">Show on Website</th>
                         <th>
                             <button
+                                (click)="toggleRadio(currentForm)"
                                 mat-icon-button
-                                matTooltip="Toggle to Radio"
+                                [matTooltip]="
+                                    'Toggle to ' + currentForm.question_type ===
+                                    'button'
+                                        ? 'Radio'
+                                        : 'Button'
+                                "
                                 class="mx-1"
                             >
                                 <mat-icon
                                     class="text-teal-500 hover:text-teal-600"
-                                    svgIcon="toggle_off"
+                                    [svgIcon]="
+                                        currentForm.question_type === 'button'
+                                            ? 'toggle_off'
+                                            : 'toggle_on'
+                                    "
                                 ></mat-icon>
                             </button>
 
