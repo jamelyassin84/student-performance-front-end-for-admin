@@ -32,8 +32,10 @@ export class SurveyChildAddComponent implements OnInit {
             this._surveyQuestionService
                 .post({ ...this.form.value, survey_form_id: form.id })
                 .subscribe({
-                    next: () => {
-                        alert('added');
+                    next: (data) => {
+                        this._surveyQuestionService.add(data);
+
+                        document.getElementById('close-btn')?.click();
                     },
                     error: () => {
                         alert('Network Error');

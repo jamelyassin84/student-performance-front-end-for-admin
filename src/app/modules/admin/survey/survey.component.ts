@@ -40,6 +40,26 @@ export class SurveyComponent implements OnInit {
                 this.forms.push(data);
             });
 
+        this._surveyQuestionService.addedData$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((newSurveyQuestion) => {
+                this.forms.forEach((form) => {
+                    if (form.id === newSurveyQuestion.survey_form_id) {
+                        let questions = form.questions;
+
+                        questions.push(newSurveyQuestion);
+
+                        const index = this.forms.findIndex(
+                            (formValue) =>
+                                formValue.id ===
+                                newSurveyQuestion.survey_form_id
+                        );
+
+                        this.forms[index].questions = questions;
+                    }
+                });
+            });
+
         this.getForms();
     }
 
