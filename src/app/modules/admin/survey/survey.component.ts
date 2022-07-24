@@ -11,7 +11,7 @@ import { SurveyQuestionEditComponent } from './survey-question-edit/survey-quest
 import { SurveyFormService } from 'app/app-core/store/form/form.service';
 import { SurveyForm } from 'app/app-core/store/form/form.model';
 import { SurveyQuestionService } from 'app/app-core/store/questions/questions.service';
-import { take } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'survey',
@@ -31,8 +31,22 @@ export class SurveyComponent implements OnInit {
 
     form$ = this._surveyFormService.current$;
 
+    unsubscribe$: Subject<any> = new Subject();
+
     ngOnInit(): void {
+        this._surveyFormService.addedData$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((data) => {
+                this.forms.push(data);
+            });
+
         this.getForms();
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(null);
+
+        this.unsubscribe$.complete();
     }
 
     getForms() {

@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '@global_packages/api/base.api';
 import { Injectable } from '@angular/core';
@@ -10,6 +10,12 @@ export class SurveyFormService extends BaseService<any> {
         super(_http, 'forms');
     }
 
+    addedData$: Subject<SurveyForm> = new Subject();
+
     current$: BehaviorSubject<SurveyForm | null> =
         new BehaviorSubject<SurveyForm | null>(null);
+
+    add(data: SurveyForm) {
+        this.addedData$.next(data);
+    }
 }
