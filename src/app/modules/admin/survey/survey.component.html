@@ -9,19 +9,17 @@
     </div>
 
     <ul class="flex flex-wrap bg-white">
-        <li role="button" class="px-10 py-3 bg-teal-500 text-white">
-            Grit Scale
-        </li>
-        <li role="button" class="px-10 py-3 hover:bg-gray-200">
-            Time Management Questions
-        </li>
-
-        <li role="button" class="px-10 py-3 hover:bg-gray-200">
-            Self Efficacy Questions
-        </li>
-
-        <li role="button" class="px-10 py-3 hover:bg-gray-200">
-            Self Regulation Questions
+        <li
+            (click)="form$.next(form)"
+            *ngFor="let form of forms"
+            role="button"
+            [ngClass]="{
+                'bg-teal-500 text-white': (form$ | async).id === form.id,
+                'hover:bg-gray-200': (form$ | async).id !== form.id
+            }"
+            class="px-10 py-3"
+        >
+            {{ form.name }}
         </li>
 
         <li class="ml-auto">
@@ -36,6 +34,7 @@
     </ul>
 
     <div
+        *ngIf="form$ | async as currentForm"
         class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-none overflow-hidden"
     >
         <div class="flex flex-col flex-auto mt-5 overflow-x-auto">
@@ -83,7 +82,7 @@
                             </button>
 
                             <button
-                                (click)="removeForm('Id')"
+                                (click)="removeForm(currentForm.id)"
                                 mat-icon-button
                                 matTooltip="Delete Form and All Questions"
                                 class="mx-1"

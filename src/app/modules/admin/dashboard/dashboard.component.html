@@ -10,92 +10,13 @@
 
     <dashboard-top-cards></dashboard-top-cards>
 
-    <ul class="flex bg-white">
-        <li role="button" class="px-10 py-3 bg-teal-500 text-white">
-            Top Students (Psychometric)
-        </li>
-    </ul>
-
-    <div class="flex bg-white py-3 px-5 items-center">
-        <div class="text-2xl font-bold">Filters</div>
-
-        <div class="ml-auto">
-            <select
-                (change)="onDepartmentChange($event.target.value)"
-                *ngIf="DEPARTMENTS | has_data"
-                class="px-3 py-2 border border-gray-200"
-            >
-                <option selected disabled>Select Department</option>
-                <option>All</option>
-                <option
-                    [value]="department.name"
-                    *ngFor="let department of DEPARTMENTS; trackBy: identity"
-                >
-                    {{ department.name }}
-                </option>
-            </select>
-        </div>
-
-        <div class="ml-5">
-            <select
-                @expandCollapse
-                (change)="onDegreeChange($event.target.value)"
-                *ngIf="DEGREES | has_data"
-                class="px-3 py-2 border border-gray-200"
-            >
-                <option selected disabled>Select Degree</option>
-                <option>All</option>
-                <option
-                    [value]="degree.name"
-                    *ngFor="let degree of DEGREES; trackBy: identity"
-                >
-                    {{ degree.name }}
-                </option>
-            </select>
-        </div>
-
-        <div class="ml-5">
-            <select
-                @expandCollapse
-                (change)="onCourseChange($event.target.value)"
-                *ngIf="COURSES | has_data"
-                class="px-3 py-2 border border-gray-200"
-            >
-                <option selected disabled>Select Course</option>
-                <option>All</option>
-                <option
-                    [value]="course.name"
-                    *ngFor="let course of COURSES; trackBy: identity"
-                >
-                    {{ course.name }}
-                </option>
-            </select>
-        </div>
-        <div class="ml-5">
-            <select
-                @expandCollapse
-                *ngIf="MAJORS | has_data"
-                class="px-3 py-2 border border-gray-200"
-            >
-                <option selected disabled>Select Major</option>
-                <option>All</option>
-                <option
-                    [value]="major"
-                    *ngFor="let major of MAJORS; trackBy: identity"
-                >
-                    {{ major }}
-                </option>
-            </select>
-        </div>
-    </div>
-
     <div
         @slideInBottom
         class="flex flex-col w-full bg-white drop-shadow-md p-10"
     >
-        <div class="font-bold text-xl">Quality Performances</div>
+        <div class="font-bold text-xl">Top Students (Psychometric)</div>
         <div class="text-gray-500 mb-10">
-            These psychometric qualities are based on top performing students
+            These students are sorted based on Psychometric Scores.
         </div>
 
         <div

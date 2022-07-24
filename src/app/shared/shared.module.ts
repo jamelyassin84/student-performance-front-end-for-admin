@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { EmptyPipe } from './../../@global_packages/pipes/empty.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -41,6 +42,8 @@ const modules = [
     MatCheckboxModule,
     MatRadioModule,
     HttpClientModule,
+    MatDialogModule,
+    MatButtonModule,
 ];
 
 const pipes = [HasDataPipe, EmptyPipe];

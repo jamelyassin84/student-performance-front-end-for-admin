@@ -1,5 +1,6 @@
+import { SurveyFormService } from './../../../../app-core/store/form/form.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'survey-parent-add',
@@ -7,9 +8,31 @@ import { FormGroup } from '@angular/forms';
     styleUrls: ['./survey-parent-add.component.scss'],
 })
 export class SurveyParentAddComponent implements OnInit {
-    constructor() {}
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _surveyFormService: SurveyFormService
+    ) {}
 
-    form: FormGroup | any;
+    form: FormGroup = this._formBuilder.group({
+        name: ['', [Validators.required]],
+        question_type: ['radio', [Validators.required]],
+    });
+
     ngOnInit(): void {}
-    save() {}
+
+    save() {
+        this.form.disable();
+
+        this._surveyFormService
+            .post(this.form.value)
+            .subscribe({
+                next: () => {
+                    alert('added');
+                },
+                error: () => {
+                    alert('Network Error');
+                },
+            })
+            .add(() => this.form.enable());
+    }
 }

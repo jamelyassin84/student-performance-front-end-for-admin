@@ -11,26 +11,35 @@
         ></mat-icon>
     </div>
 
-    <div mat-dialog-content class="mb-5 p-5 py-10">
-        <div class="w-full flex flex-col">
-            <label>Form Name</label>
+    <div [formGroup]="form" mat-dialog-content class="mb-5 p-5 py-10">
+        <mat-form-field class="w-full">
+            <mat-label>Form Name</mat-label>
 
-            <input class="border border-gray-200 px-3 py-2" />
-        </div>
+            <input id="name" matInput [formControlName]="'name'" />
 
-        <section class="example-section flex flex-col mt-5">
-            <label class="example-margin my-3">Question Type</label>
+            <mat-error *ngIf="form.get('name').hasError('required')">
+                Form Name is required
+            </mat-error>
+        </mat-form-field>
 
-            <mat-radio-group class="flex flex-col">
-                <mat-radio-button class="mb-5" value="after"
-                    >Radio
-                </mat-radio-button>
+        <mat-form-field class="w-full">
+            <mat-label>Question Typ</mat-label>
 
-                <mat-radio-button class="example-margin" value="before"
-                    >Button</mat-radio-button
-                >
-            </mat-radio-group>
-        </section>
+            <mat-select
+                id="question_type"
+                matInput
+                [formControlName]="'question_type'"
+            >
+                <mat-option [value]="'button'">Button</mat-option>
+                <mat-option [value]="'radio'">Radio</mat-option>
+            </mat-select>
+
+            <mat-error
+                *ngIf="form.get('question_type').hasError('question_type')"
+            >
+                Question Typ is required
+            </mat-error>
+        </mat-form-field>
     </div>
 
     <div mat-dialog-actions class="flex items-center">
@@ -39,8 +48,12 @@
         </button>
 
         <button
+            [ngClass]="{
+                'bg-slate-200': !form.valid || form.disabled,
+                'bg-teal-500': form.valid && !form.disabled
+            }"
             (click)="save()"
-            class="ml-2 text-white border border-emerald-600 rounded-sm bg-slate-200 px-10"
+            class="ml-2 text-white rounded-sm px-10"
             mat-button
         >
             <span> Add </span>

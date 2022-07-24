@@ -1,3 +1,4 @@
+import { StudentPerformance } from './../store/performance/performance.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '@global_packages/api/base.api';
@@ -32,6 +33,7 @@ export interface Student extends PHPBaseModel {
     major: string;
     address: string;
     user_id: string;
+    performances: StudentPerformance[];
 }
 
 export interface User extends PHPBaseModel {

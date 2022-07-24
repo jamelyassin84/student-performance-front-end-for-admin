@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SurveyFormService } from 'app/app-core/store/form/form.service';
+import { take } from 'rxjs';
 
 @Component({
     selector: 'survey-form-edit',
@@ -7,9 +9,42 @@ import { FormGroup } from '@angular/forms';
     styleUrls: ['./survey-form-edit.component.scss'],
 })
 export class SurveyFormEditComponent implements OnInit {
-    constructor() {}
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _surveyFormService: SurveyFormService
+    ) {}
 
-    form: FormGroup | any;
+    form: FormGroup = this._formBuilder.group({
+        id: [''],
+        name: ['', [Validators.required]],
+        question_type: ['radio', [Validators.required]],
+    });
+
     ngOnInit(): void {}
-    save() {}
+
+    ngAfterContentInit(): void {
+        this._surveyFormService.current$.pipe(take(1)).subscribe((form) => {
+            this.form.setValue({
+                id: form.id,
+                name: form.name,
+                question_type: form.question_type,
+            });
+        });
+    }
+
+    save() {
+        this.form.disable();
+
+        this._surveyFormService
+            .update(this.form.value.id, this.form.value)
+            .subscribe({
+                next: () => {
+                    alert('Updated');
+                },
+                error: () => {
+                    alert('Network Error');
+                },
+            })
+            .add(() => this.form.enable());
+    }
 }
