@@ -112,10 +112,7 @@
                     [@listAnimation]="currentForm.questions.length"
                 >
                     <tr
-                        *ngFor="
-                            let question of currentForm.questions;
-                            trackBy: identity
-                        "
+                        *ngFor="let question of currentForm.questions"
                         class="border-t border-zinc-200 text-center hover:bg-slate-50"
                     >
                         <td>{{ question.title }}</td>
