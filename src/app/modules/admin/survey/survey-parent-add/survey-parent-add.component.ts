@@ -16,6 +16,7 @@ export class SurveyParentAddComponent implements OnInit {
     form: FormGroup = this._formBuilder.group({
         name: ['', [Validators.required]],
         question_type: ['radio', [Validators.required]],
+        description: ['', [Validators.required]],
     });
 
     ngOnInit(): void {}

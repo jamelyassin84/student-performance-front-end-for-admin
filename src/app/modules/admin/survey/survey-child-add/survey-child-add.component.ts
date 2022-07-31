@@ -35,7 +35,7 @@ export class SurveyChildAddComponent implements OnInit {
                     next: (data) => {
                         this._surveyQuestionService.add(data);
 
-                        document.getElementById('close-btn')?.click();
+                        // document.getElementById('close-btn')?.click();
                     },
                     error: () => {
                         alert('Network Error');

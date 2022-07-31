@@ -38,6 +38,8 @@
         class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-none overflow-hidden"
     >
         <div class="flex flex-col flex-auto mt-5 overflow-x-auto">
+            <div>Description:{{ currentForm.description }}</div>
+
             <table class="min-w-240 overflow-y-visible">
                 <thead>
                     <tr>
@@ -107,10 +109,13 @@
                 </thead>
                 <tbody
                     *ngIf="currentForm.questions.length !== 0"
-                    [@listAnimation]="5"
+                    [@listAnimation]="currentForm.questions.length"
                 >
                     <tr
-                        *ngFor="let question of currentForm.questions"
+                        *ngFor="
+                            let question of currentForm.questions;
+                            trackBy: identity
+                        "
                         class="border-t border-zinc-200 text-center hover:bg-slate-50"
                     >
                         <td>{{ question.title }}</td>

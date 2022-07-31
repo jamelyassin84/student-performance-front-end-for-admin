@@ -24,6 +24,20 @@
         </mat-form-field>
 
         <mat-form-field class="w-full">
+            <mat-label>Description</mat-label>
+
+            <textarea
+                id="description"
+                matInput
+                [formControlName]="'description'"
+            ></textarea>
+
+            <mat-error *ngIf="form.get('description').hasError('required')">
+                Question is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="w-full">
             <mat-label>Question Typ</mat-label>
 
             <mat-select
@@ -40,7 +54,7 @@
             >
                 Question Typ is required
             </mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
     </div>
 
     <div mat-dialog-actions class="flex items-center">

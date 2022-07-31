@@ -24,21 +24,16 @@
         </mat-form-field>
 
         <mat-form-field class="w-full">
-            <mat-label>Question Typ</mat-label>
+            <mat-label>Description</mat-label>
 
-            <mat-select
-                id="question_type"
+            <textarea
+                id="description"
                 matInput
-                [formControlName]="'question_type'"
-            >
-                <mat-option [value]="'button'">Button</mat-option>
-                <mat-option [value]="'radio'">Radio</mat-option>
-            </mat-select>
+                [formControlName]="'description'"
+            ></textarea>
 
-            <mat-error
-                *ngIf="form.get('question_type').hasError('question_type')"
-            >
-                Question Typ is required
+            <mat-error *ngIf="form.get('description').hasError('required')">
+                Question is required
             </mat-error>
         </mat-form-field>
     </div>

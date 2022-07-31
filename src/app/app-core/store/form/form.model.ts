@@ -5,4 +5,5 @@ export interface SurveyForm extends PHPBaseModel {
     name: string;
     question_type: 'radio' | 'button';
     questions: SurveyQuestion[];
+    description: string;
 }

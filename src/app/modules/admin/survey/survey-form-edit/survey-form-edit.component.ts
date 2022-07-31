@@ -18,6 +18,7 @@ export class SurveyFormEditComponent implements OnInit {
         id: [''],
         name: ['', [Validators.required]],
         question_type: ['radio', [Validators.required]],
+        description: ['', [Validators.required]],
     });
 
     ngOnInit(): void {}
@@ -28,6 +29,7 @@ export class SurveyFormEditComponent implements OnInit {
                 id: form.id,
                 name: form.name,
                 question_type: form.question_type,
+                description: form.description,
             });
         });
     }

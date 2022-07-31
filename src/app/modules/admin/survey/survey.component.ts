@@ -107,6 +107,8 @@ export class SurveyComponent implements OnInit {
         this.unsubscribe$.complete();
     }
 
+    identity = (item: any) => item;
+
     getForms() {
         this._surveyFormService.get().subscribe((forms: SurveyForm[]) => {
             if (hasData(forms)) {
