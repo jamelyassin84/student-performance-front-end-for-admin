@@ -22,4 +22,11 @@ export const adminTabs: FuseNavigationItem[] = [
         icon: 'mat_outline:drive_file_rename_outline',
         link: '/survey',
     },
+    {
+        id: 'guideance-request',
+        title: 'Guidance Request',
+        type: 'basic',
+        icon: 'email',
+        link: '/guidance-request',
+    },
 ];

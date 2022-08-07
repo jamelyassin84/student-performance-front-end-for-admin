@@ -149,6 +149,13 @@ export const appRoutes: Route[] = [
                         (module) => module.SurveyModule
                     ),
             },
+            {
+                path: 'guidance-request',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/guidance-request/guidance-request.module'
+                    ).then((module) => module.GuidanceRequestModule),
+            },
         ],
     },
 ];

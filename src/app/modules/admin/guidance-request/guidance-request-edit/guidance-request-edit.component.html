@@ -1,0 +1,44 @@
+<div [formGroup]="form" class="w-screen p-5 md:w-auto md:p-0">
+    <div class="flex pb-4 border-b border-b-gray-200">
+        <h1 class="text-xl">New Question</h1>
+
+        <mat-icon
+            id="close-btn"
+            role="button"
+            mat-button
+            mat-dialog-close
+            svgIcon="feather:x"
+            class="ml-auto text-2xl bi bi-x-lg hover:text-rose-600 text-slate-900"
+        ></mat-icon>
+    </div>
+
+    <div [formGroup]="form" mat-dialog-content class="py-10 mb-5">
+        <mat-form-field class="w-full">
+            <mat-label>GPA</mat-label>
+
+            <input id="gpa" matInput [formControlName]="'gpa'" />
+
+            <mat-error *ngIf="form.get('gpa').hasError('required')">
+                GPA is required
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions class="flex items-center">
+        <button class="ml-auto text-slate-400" mat-button mat-dialog-close>
+            Close
+        </button>
+
+        <button
+            [ngClass]="{
+                'bg-slate-200': !form.valid || form.disabled,
+                'bg-teal-500': form.valid && !form.disabled
+            }"
+            (click)="save()"
+            class="px-10 ml-2 text-white rounded-sm"
+            mat-button
+        >
+            <span> Update </span>
+        </button>
+    </div>
+</div>

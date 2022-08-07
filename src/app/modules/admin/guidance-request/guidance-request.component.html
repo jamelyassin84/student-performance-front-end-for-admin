@@ -1,0 +1,50 @@
+<div class="flex flex-col w-full">
+    <div @slideInTop class="flex flex-col w-full">
+        <app-header
+            class="w-full"
+            pageTitle="Student Guidance Request"
+            subtitle="List of students who wants to have an appointment in Guidance Office"
+            icon="email"
+        ></app-header>
+    </div>
+
+    <div
+        class="flex flex-col flex-auto p-6 overflow-hidden rounded-none shadow sm:col-span-6 bg-card"
+    >
+        <div class="flex flex-col flex-auto mt-5 overflow-x-auto">
+            <table class="overflow-y-visible min-w-240">
+                <thead>
+                    <tr>
+                        <th class="text-zinc-900/50">Student Name</th>
+                        <th class="text-zinc-900/50">Department</th>
+                        <th class="text-zinc-900/50">Degree</th>
+                        <th class="text-zinc-900/50">Course</th>
+                        <th class="text-zinc-900/50">Major</th>
+                        <th class="text-zinc-900/50">Performance</th>
+                        <th class="text-zinc-900/50">GPA</th>
+                        <th class="text-zinc-900/50"></th>
+                    </tr>
+                </thead>
+                <tbody [@listAnimation]="guidanceRequests.length">
+                    <tr
+                        class="text-center border-t border-zinc-200 hover:bg-slate-50"
+                        *ngFor="let request of guidanceRequests"
+                    >
+                        <td>{{ request.student.name }}</td>
+                        <td>{{ request.student.department }}</td>
+                        <td>{{ request.student.degree }}</td>
+                        <td>{{ request.student.course }}</td>
+                        <td>{{ request.student.major || "N/A" }}</td>
+                        <td>{{ request.student.performance.performance }}</td>
+                        <td>{{ request.student.performance.gpa }}</td>
+                        <td>
+                            <button (click)="updateGPA(request)" mat-button>
+                                Update GPA
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
