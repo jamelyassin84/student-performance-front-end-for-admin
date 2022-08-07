@@ -30,7 +30,7 @@ export class SurveyParentAddComponent implements OnInit {
                 next: (data) => {
                     this._surveyFormService.add(data);
 
-                    document.getElementById('close-btn')?.click();
+                    this.form.reset();
                 },
                 error: () => {
                     alert('Network Error');

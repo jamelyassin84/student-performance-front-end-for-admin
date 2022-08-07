@@ -53,7 +53,7 @@ export class SurveyQuestionEditComponent implements OnInit {
                     next: (data) => {
                         this._surveyQuestionService.edit(data);
 
-                        document.getElementById('close-btn')?.click();
+                        this.form.reset();
                     },
                     error: () => {
                         alert('Network Error');
