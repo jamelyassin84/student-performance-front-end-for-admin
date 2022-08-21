@@ -21,6 +21,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HasDataPipe } from '@global_packages/pipes/has-data.pipe';
 import { ToAveragePerformancePipe } from 'app/app-core/pipes/to-avarage-perfromance.pipe';
 import { PredictPipe } from 'app/app-core/pipes/regression.pipe';
+import { SVMPredictPipe } from 'app/app-core/pipes/svm.pipe';
 
 const components = [AppHeaderComponent];
 
@@ -48,7 +49,13 @@ const modules = [
     MatButtonModule,
 ];
 
-const pipes = [HasDataPipe, EmptyPipe, ToAveragePerformancePipe, PredictPipe];
+const pipes = [
+    HasDataPipe,
+    EmptyPipe,
+    ToAveragePerformancePipe,
+    PredictPipe,
+    SVMPredictPipe,
+];
 
 const directives = [];
 

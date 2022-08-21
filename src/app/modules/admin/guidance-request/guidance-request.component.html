@@ -22,7 +22,8 @@
                         <th class="text-zinc-900/50">Major</th>
                         <th class="text-zinc-900/50">Performance</th>
                         <th class="text-zinc-900/50">GPA</th>
-                        <th class="text-zinc-900/50">Predicted GPA</th>
+                        <th class="text-zinc-900/50">GPA (LR)</th>
+                        <th class="text-zinc-900/50">GPA (SVM)</th>
                         <th class="text-zinc-900/50"></th>
                     </tr>
                 </thead>
@@ -42,6 +43,13 @@
                             {{
                                 request.student.performance.performance
                                     | predict
+                                    | async
+                            }}
+                        </td>
+                        <td>
+                            {{
+                                request.student.performance.performance
+                                    | svm_predict
                                     | async
                             }}
                         </td>
