@@ -1,7 +1,7 @@
 import { BaseService } from './../../../../@global_packages/api/base.api';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class GuidanceRequestService extends BaseService<any> {
@@ -12,4 +12,6 @@ export class GuidanceRequestService extends BaseService<any> {
     current$: BehaviorSubject<any | null> = new BehaviorSubject<any | null>(
         null
     );
+
+    editedData$: Subject<any> = new Subject();
 }

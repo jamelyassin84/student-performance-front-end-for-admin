@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { dbwAnimations } from '@global_packages/animations/animation.api';
 import { GuidanceRequestService } from './guidance-request.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'guidance-request',
@@ -18,12 +19,36 @@ export class GuidanceRequestComponent implements OnInit {
 
     guidanceRequests: any[] = [];
 
+    unsubscribe$: Subject<any> = new Subject();
+
     ngOnInit(): void {
         this._guidanceRequestService
             .get()
             .subscribe(
                 (guidanceRequests) => (this.guidanceRequests = guidanceRequests)
             );
+
+        this._guidanceRequestService.editedData$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((data) => {
+                const request = this.guidanceRequests.find(
+                    (request) => request.id === request.id
+                );
+
+                const formIndex = this.guidanceRequests.findIndex(
+                    (request) => request.id === request.id
+                );
+
+                this.guidanceRequests[formIndex] = {
+                    ...data,
+                };
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribe$.next(null);
+
+        this.unsubscribe$.complete();
     }
 
     updateGPA(request: any) {

@@ -36,7 +36,18 @@ export class GuidanceRequestEditComponent implements OnInit {
             .subscribe((request) => {
                 this._surveyPerformanceService
                     .update(request.student.performance.id, this.form.value)
-                    .subscribe(() => {});
+                    .subscribe(() => {
+                        this._guidanceRequestService.editedData$.next({
+                            ...request,
+                            student: {
+                                ...request.student,
+                                performance: {
+                                    ...request.student.performance,
+                                    gpa: this.form.value.gpa,
+                                },
+                            },
+                        });
+                    });
             });
     }
 }
