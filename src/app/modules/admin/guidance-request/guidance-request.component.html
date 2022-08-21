@@ -22,6 +22,7 @@
                         <th class="text-zinc-900/50">Major</th>
                         <th class="text-zinc-900/50">Performance</th>
                         <th class="text-zinc-900/50">GPA</th>
+                        <th class="text-zinc-900/50">Predicted GPA</th>
                         <th class="text-zinc-900/50"></th>
                     </tr>
                 </thead>
@@ -37,6 +38,13 @@
                         <td>{{ request.student.major || "N/A" }}</td>
                         <td>{{ request.student.performance.performance }}</td>
                         <td>{{ request.student.performance.gpa }}</td>
+                        <td>
+                            {{
+                                request.student.performance.performance
+                                    | predict
+                                    | async
+                            }}
+                        </td>
                         <td>
                             <button (click)="updateGPA(request)" mat-button>
                                 Update GPA
