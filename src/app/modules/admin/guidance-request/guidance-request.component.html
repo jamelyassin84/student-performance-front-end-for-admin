@@ -27,31 +27,35 @@
                     </tr>
                 </thead>
                 <tbody [@listAnimation]="guidanceRequests.length">
-                    <tr
-                        class="text-center border-t border-zinc-200 hover:bg-slate-50"
-                        *ngFor="let request of guidanceRequests"
-                    >
-                        <td>{{ request.student.name }}</td>
-                        <td>{{ request.student.department }}</td>
-                        <td>{{ request.student.degree }}</td>
-                        <td>{{ request.student.course }}</td>
-                        <td>{{ request.student.major || "N/A" }}</td>
-                        <td>{{ request.student.performance.performance }}</td>
-                        <td>{{ request.student.performance.gpa }}</td>
-                        <td>
-                            {{
-                                request.student.performance.performance
-                                    | predict
-                                    | async
-                            }}
-                        </td>
+                    <ng-container *ngFor="let request of guidanceRequests">
+                        <tr
+                            *ngIf="request.student"
+                            class="text-center border-t border-zinc-200 hover:bg-slate-50"
+                        >
+                            <td>{{ request.student.name }}</td>
+                            <td>{{ request.student.department }}</td>
+                            <td>{{ request.student.degree }}</td>
+                            <td>{{ request.student.course }}</td>
+                            <td>{{ request.student.major || "N/A" }}</td>
+                            <td>
+                                {{ request.student.performance.performance }}
+                            </td>
+                            <td>{{ request.student.performance.gpa }}</td>
+                            <td>
+                                {{
+                                    request.student.performance.performance
+                                        | predict
+                                        | async
+                                }}
+                            </td>
 
-                        <td>
-                            <button (click)="updateGPA(request)" mat-button>
-                                Update GPA
-                            </button>
-                        </td>
-                    </tr>
+                            <td>
+                                <button (click)="updateGPA(request)" mat-button>
+                                    Update GPA
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </tbody>
             </table>
         </div>
