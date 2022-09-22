@@ -18,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled',
+    useHash: true,
 };
 
 @NgModule({
