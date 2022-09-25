@@ -1,1 +1,6 @@
-<dashboard-chart></dashboard-chart>
+<div class="grid grid-cols-1 md:grid-cols-3 w-full gap-30 py-30">
+    <dashboard-chart
+        [data]="chart"
+        *ngFor="let chart of pieCharts"
+    ></dashboard-chart>
+</div>

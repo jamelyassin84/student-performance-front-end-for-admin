@@ -1,3 +1,4 @@
+import { GuidanceRequest } from './../../../app-core/models/guidance-request.model';
 import { GuidanceRequestEditComponent } from './guidance-request-edit/guidance-request-edit.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,26 +18,24 @@ export class GuidanceRequestComponent implements OnInit {
         private _guidanceRequestService: GuidanceRequestService
     ) {}
 
-    guidanceRequests: any[] = [];
+    guidanceRequests: GuidanceRequest[] = [];
 
     unsubscribe$: Subject<any> = new Subject();
 
     ngOnInit(): void {
-        this._guidanceRequestService
-            .get()
-            .subscribe(
-                (guidanceRequests) => (this.guidanceRequests = guidanceRequests)
-            );
+        this._guidanceRequestService.get().subscribe((guidanceRequests) => {
+            this.guidanceRequests = Object.values(guidanceRequests);
+        });
 
         this._guidanceRequestService.editedData$
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((data) => {
-                const request = this.guidanceRequests.find(
+                const guidance = this.guidanceRequests.find(
                     (request) => request.id === request.id
                 );
 
                 const formIndex = this.guidanceRequests.findIndex(
-                    (request) => request.id === request.id
+                    (request) => request.id === guidance.id
                 );
 
                 this.guidanceRequests[formIndex] = {

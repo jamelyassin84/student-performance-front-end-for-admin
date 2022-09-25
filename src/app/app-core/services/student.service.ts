@@ -35,6 +35,7 @@ export interface Student extends PHPBaseModel {
     address: string;
     user_id: string;
     performances: StudentPerformance[];
+    performance: StudentPerformance;
     surveys: SurveyForm;
 }
 

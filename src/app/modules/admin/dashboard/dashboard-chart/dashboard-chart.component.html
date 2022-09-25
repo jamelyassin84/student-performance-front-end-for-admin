@@ -1,1 +1,11 @@
-<p>dashboard-chart works!</p>
+<div class="scale-75 w-full text-center">
+    <apx-chart
+        *ngIf="pie"
+        [series]="pie.series"
+        [chart]="pie.chart"
+        [labels]="pie.labels"
+        [responsive]="pie.responsive"
+    ></apx-chart>
+
+    <div class="font-bold">{{ chartTitle }}</div>
+</div>

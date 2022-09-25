@@ -22,6 +22,7 @@ import { HasDataPipe } from '@global_packages/pipes/has-data.pipe';
 import { ToAveragePerformancePipe } from 'app/app-core/pipes/to-avarage-perfromance.pipe';
 import { PredictPipe } from 'app/app-core/pipes/regression.pipe';
 import { SVMPredictPipe } from 'app/app-core/pipes/svm.pipe';
+import { ToOptimizedRegressionPipe } from 'app/app-core/pipes/optimized-regression.pipe';
 
 const components = [AppHeaderComponent];
 
@@ -55,6 +56,7 @@ const pipes = [
     ToAveragePerformancePipe,
     PredictPipe,
     SVMPredictPipe,
+    ToOptimizedRegressionPipe,
 ];
 
 const directives = [];

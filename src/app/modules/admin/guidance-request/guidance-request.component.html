@@ -44,7 +44,7 @@
                             <td>
                                 {{
                                     request.student.performance.performance
-                                        | predict
+                                        | to_optimized_regression
                                         | async
                                 }}
                             </td>
