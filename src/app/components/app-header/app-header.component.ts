@@ -8,11 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AppHeaderComponent implements OnInit {
     constructor() {}
 
-    @Input() pageTitle!: string;
+    @Input() 
+    pageTitle!: string;
 
-    @Input() subtitle!: string;
+    @Input() 
+    subtitle!: string;
 
-    @Input() icon!: string;
+    @Input()
+    icon!: string;
 
     ngOnInit(): void {}
 }
