@@ -32,7 +32,7 @@
         <button
             [ngClass]="{
                 'bg-slate-200': !form.valid || form.disabled,
-                'bg-teal-500': form.valid && !form.disabled
+                'bg-cpu-color': form.valid && !form.disabled
             }"
             (click)="save()"
             class="px-10 ml-2 text-white rounded-sm"

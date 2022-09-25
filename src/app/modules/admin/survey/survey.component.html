@@ -14,7 +14,7 @@
             *ngFor="let form of forms"
             role="button"
             [ngClass]="{
-                'bg-teal-500 text-white': (form$ | async).id === form.id,
+                'bg-cpu-color text-white': (form$ | async).id === form.id,
                 'hover:bg-gray-200': (form$ | async).id !== form.id
             }"
             class="px-10 py-3"
@@ -60,7 +60,7 @@
                                 class="mx-1"
                             >
                                 <mat-icon
-                                    class="text-teal-500 hover:text-teal-600"
+                                    class="text-cpu-color hover:text-cpu-color"
                                     [svgIcon]="
                                         currentForm.question_type === 'button'
                                             ? 'toggle_off'
