@@ -2,8 +2,10 @@ import { Analytics } from './../../../app-core/store/analytics/analytics.model';
 import { Component, OnInit } from '@angular/core';
 import { dbwAnimations } from '@global_packages/animations/animation.api';
 import { Course, Degree, DEPARTMENTS1 } from 'app/app-core/app.constants';
-import { StudentService } from 'app/app-core/services/student.service';
 import { AnalyticsService } from 'app/app-core/store/analytics/analytics.service';
+import { slugify } from '@global_packages/helpers/helpers';
+import { Router } from '@angular/router';
+import { StudentService, User } from 'app/app-core/services/student.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -13,6 +15,7 @@ import { AnalyticsService } from 'app/app-core/store/analytics/analytics.service
 })
 export class DashboardComponent implements OnInit {
     constructor(
+        private _router: Router,
         private _studentService: StudentService,
         private _analyticsService: AnalyticsService
     ) {}
@@ -68,5 +71,13 @@ export class DashboardComponent implements OnInit {
         this.MAJORS = this.COURSES.find(
             (course) => course.name === data
         ).majors;
+    }
+
+    viewMore(user: User) {
+        this._studentService.user$.next(user);
+
+        this._router.navigate([`students/${slugify(user.student.name)}`]);
+
+        localStorage.setItem('user', JSON.stringify(user));
     }
 }

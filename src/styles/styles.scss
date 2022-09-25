@@ -2,3 +2,13 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+
+td,
+th {
+    text-align: left;
+}
+
+th {
+    color: black !important;
+    text-transform: uppercase;
+}
