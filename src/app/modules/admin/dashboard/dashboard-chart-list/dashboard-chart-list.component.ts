@@ -30,8 +30,6 @@ export class DashboardChartListComponent implements OnInit {
                     return groups;
                 }, {});
 
-                console.log(groups);
-
                 const colleges = [
                     'College of Computer Studies',
                     'College of Nursing',
@@ -70,7 +68,6 @@ export class DashboardChartListComponent implements OnInit {
                         }
                     );
                 this.pieCharts = temporaryCharts;
-                console.log(temporaryCharts);
             });
     }
 
