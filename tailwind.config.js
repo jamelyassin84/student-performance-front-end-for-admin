@@ -100,7 +100,7 @@ const config = {
             },
             colors: {
                 gray: colors.slate,
-                "cpu-color": "#1F0B5D",
+                "cpu-color": "#0F172A",
             },
             flex: {
                 0: "0 0 auto",

@@ -12,6 +12,8 @@ export class ToAveragePerformancePipe implements PipeTransform {
             total += performance.performance;
         });
 
-        return total / performances.length;
+        return Number.isNaN(total / performances.length)
+            ? 0
+            : total / performances.length;
     }
 }
