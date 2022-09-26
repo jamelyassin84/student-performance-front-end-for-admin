@@ -1,6 +1,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-30 py-30">
     <dashboard-chart
         [data]="chart"
-        *ngFor="let chart of pieCharts"
+        *ngFor="let chart of pieCharts; let i = index"
+        [style.filter]="'hue-rotate(' + i * 220 + 'deg)'"
     ></dashboard-chart>
 </div>

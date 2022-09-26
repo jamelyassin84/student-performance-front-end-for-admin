@@ -17,51 +17,94 @@ export class DashboardChartListComponent implements OnInit {
         this._surveyPerformanceService
             .query('/by_college/get')
             .subscribe((performance) => {
-                const groups = [
-                    'College of Computer Studies',
-                    'College of Nursing',
-                    'College of Arts and Sciences',
-                ];
-
-                let temporaryCharts = groups.map((department) => {
-                    return {
-                        ...TEMPORARY_CHART_CONFIG,
-                        department: department,
-                    };
-                });
-
                 const studentPerformances: StudentPerformance[] =
                     Object.values(performance);
 
-                studentPerformances.forEach((performance) => {
-                    const studentDepartment = performance.student.department;
+                const groups = studentPerformances.reduce((groups, item) => {
+                    let group = groups[item.student.department] || [];
 
-                    const currentDepartmentIndex = temporaryCharts.findIndex(
-                        (chart) => chart.department === studentDepartment
+                    group.push(item);
+
+                    groups[item.student.department] = group;
+
+                    return groups;
+                }, {});
+
+                console.log(groups);
+
+                const colleges = [
+                    'College of Computer Studies',
+                    'College of Nursing',
+                    'College of Arts and Sciences',
+                ].filter((college) => Object.keys(groups).includes(college));
+
+                let temporaryCharts = colleges
+                    .map((department) => {
+                        return {
+                            ...TEMPORARY_CHART_CONFIG,
+                            department: department,
+                        };
+                    })
+                    .filter((chart) =>
+                        Object.keys(groups).includes(chart.department)
                     );
 
-                    Object.values(performance.records).forEach((record) => {
-                        if (
-                            !temporaryCharts[
-                                currentDepartmentIndex
-                            ].labels.includes(record.survey_form.name)
-                        ) {
-                            temporaryCharts[currentDepartmentIndex].labels.push(
-                                record.survey_form.name
+                Object.values(groups)
+                    .reverse()
+                    .forEach(
+                        (currentPerformances: StudentPerformance[], index) => {
+                            const department =
+                                currentPerformances[index].student.department;
+
+                            const chartIndex = temporaryCharts.findIndex(
+                                (chart) => chart.department === department
                             );
+
+                            const { labels, series } =
+                                this.processSeriesAndLabels(
+                                    currentPerformances
+                                );
+
+                            temporaryCharts[chartIndex].series = series;
+                            temporaryCharts[chartIndex].labels = labels;
                         }
-                    });
-
-                    temporaryCharts[currentDepartmentIndex].series.push(
-                        performance.performance
                     );
-                });
-
-                console.log(temporaryCharts);
-
                 this.pieCharts = temporaryCharts;
+                console.log(temporaryCharts);
             });
     }
 
-    process() {}
+    processSeriesAndLabels(performances: StudentPerformance[]): {
+        labels: string[];
+        series: number[];
+    } {
+        let labels = [];
+        let series = [];
+
+        for (let performance of performances) {
+            const records = Object.values(performance.records);
+
+            for (let record of records) {
+                const index = labels.findIndex(
+                    (label) => label === record.survey_form.name
+                );
+
+                const score =
+                    record.score / records.length / performances.length;
+
+                if (index < 0) {
+                    labels.push(record.survey_form.name);
+
+                    series.push(score);
+                } else {
+                    series[index] = series[index] + score;
+                }
+            }
+        }
+
+        return {
+            labels: labels,
+            series: series,
+        };
+    }
 }
