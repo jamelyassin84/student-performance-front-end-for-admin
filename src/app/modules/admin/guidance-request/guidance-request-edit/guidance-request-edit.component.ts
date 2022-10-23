@@ -1,6 +1,6 @@
 import { SurveyPerformanceService } from 'app/app-core/store/performance/performance.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { GuidanceRequestService } from '../guidance-request.service';
 
@@ -11,12 +11,12 @@ import { GuidanceRequestService } from '../guidance-request.service';
 })
 export class GuidanceRequestEditComponent implements OnInit {
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _guidanceRequestService: GuidanceRequestService,
         private _surveyPerformanceService: SurveyPerformanceService
     ) {}
 
-    form: FormGroup = this._formBuilder.group({
+    form: UntypedFormGroup = this._formBuilder.group({
         gpa: ['', [Validators.required]],
     });
 

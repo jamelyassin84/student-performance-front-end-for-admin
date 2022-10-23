@@ -1,5 +1,5 @@
 import { SurveyFormService } from './../../../../app-core/store/form/form.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { SurveyQuestionService } from 'app/app-core/store/questions/questions.service';
 import { take } from 'rxjs';
@@ -11,12 +11,12 @@ import { take } from 'rxjs';
 })
 export class SurveyChildAddComponent implements OnInit {
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _surveyFormService: SurveyFormService,
         private _surveyQuestionService: SurveyQuestionService
     ) {}
 
-    form: FormGroup = this._formBuilder.group({
+    form: UntypedFormGroup = this._formBuilder.group({
         title: ['', [Validators.required]],
         question: ['', [Validators.required]],
         show_on_website: [true, [Validators.required]],

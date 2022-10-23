@@ -1,7 +1,7 @@
 import { SurveyQuestionService } from './../../../../app-core/store/questions/questions.service';
 import { SurveyFormService } from 'app/app-core/store/form/form.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 
 @Component({
@@ -11,12 +11,12 @@ import { take } from 'rxjs';
 })
 export class SurveyQuestionEditComponent implements OnInit {
     constructor(
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private _surveyFormService: SurveyFormService,
         private _surveyQuestionService: SurveyQuestionService
     ) {}
 
-    form: FormGroup = this._formBuilder.group({
+    form: UntypedFormGroup = this._formBuilder.group({
         id: [''],
         title: ['', [Validators.required]],
         question: ['', [Validators.required]],
