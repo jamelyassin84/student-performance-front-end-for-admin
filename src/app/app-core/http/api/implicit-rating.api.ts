@@ -7,6 +7,6 @@ import {BaseService} from '@global_packages/api/base.api'
 })
 export class ImplicitRatingAPI extends BaseService<any> {
     constructor(_http: HttpClient) {
-        super(_http, '/implicit-rating')
+        super(_http, 'implicit-rating')
     }
 }

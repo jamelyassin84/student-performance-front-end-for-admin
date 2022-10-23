@@ -1,5 +1,5 @@
 import {MatDialog} from '@angular/material/dialog'
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, Input} from '@angular/core'
 import {dbwAnimations} from '@global_packages/animations/animation.api'
 import {Store} from '@ngrx/store'
 import {ImplicitRating} from 'app/app-core/models/implicit-rating-recommendation'
@@ -16,6 +16,7 @@ import {ImplicitRatingEditComponent} from '../implicit-rating-edit/implicit-rati
 export class ImplicitRatingTableComponent implements OnInit {
     constructor(private _store: Store<AppState>, private _modal: MatDialog) {}
 
+    @Input()
     ratings?: ImplicitRating[]
 
     ngOnInit(): void {}

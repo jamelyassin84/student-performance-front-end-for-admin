@@ -48,9 +48,7 @@ export class ImplicitRatingAddComponent implements OnInit {
     addRecommendation(): void {
         this.recommendations.push(
             this._formBuilder.group({
-                id: [''],
                 title: ['', Validators.required],
-                average: ['', Validators.required],
             }),
         )
     }
@@ -66,10 +64,11 @@ export class ImplicitRatingAddComponent implements OnInit {
 
         this.implicitRatingForm.disable()
 
+        console.log(this.implicitRatingForm.value)
         this._store.dispatch(
-            StoreAction.IMPLICIT_RATING.UPSERT(
-                this.implicitRatingForm.value as any,
-            ),
+            StoreAction.IMPLICIT_RATING.UPSERT({
+                rating: this.implicitRatingForm.value as any,
+            }),
         )
 
         this.implicitRatingForm.enable()

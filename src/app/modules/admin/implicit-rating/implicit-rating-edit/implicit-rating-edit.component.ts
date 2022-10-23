@@ -29,14 +29,32 @@ export class ImplicitRatingEditComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public rating: ImplicitRating,
     ) {}
 
-    implicitRatingForm: FormGroup<ImplicitRatingPayload> =
-        this._formBuilder.group({
-            title: ['', Validators.required],
-            average: ['', Validators.required],
+    implicitRatingForm = this._formBuilder.group({
+        id: [''],
+        title: ['', Validators.required],
+        average: ['', Validators.required],
+        recommendations: this._formBuilder.array<RecommendationPayload>([]),
+    })
+
+    ngOnInit(): void {}
+
+    ngAfterContentInit(): void {
+        this.implicitRatingForm = this._formBuilder.group({
+            id: this.rating.id,
+            title: this.rating.title,
+            average: this.rating.average.toString(),
             recommendations: this._formBuilder.array<RecommendationPayload>([]),
         })
 
-    ngOnInit(): void {}
+        this.rating.recommendations.forEach((recommendation) => {
+            this.recommendations.push(
+                this._formBuilder.group({
+                    id: [recommendation.id],
+                    title: [recommendation.title, Validators.required],
+                }),
+            )
+        })
+    }
 
     get recommendations() {
         return this.implicitRatingForm.get('recommendations') as FormArray
@@ -67,9 +85,9 @@ export class ImplicitRatingEditComponent implements OnInit {
         this.implicitRatingForm.disable()
 
         this._store.dispatch(
-            StoreAction.IMPLICIT_RATING.UPSERT(
-                this.implicitRatingForm.value as any,
-            ),
+            StoreAction.IMPLICIT_RATING.UPSERT({
+                rating: this.implicitRatingForm.value as any,
+            }),
         )
 
         this.implicitRatingForm.enable()

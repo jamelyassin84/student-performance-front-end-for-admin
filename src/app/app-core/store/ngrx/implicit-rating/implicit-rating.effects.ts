@@ -1,6 +1,6 @@
 import {StoreAction} from './../../core/action.enum'
 import {Injectable} from '@angular/core'
-import {switchMap, map} from 'rxjs/operators'
+import {switchMap, map, tap} from 'rxjs/operators'
 import {ImplicitRatingService} from './implicit-rating.service'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 
@@ -32,13 +32,9 @@ export class ImplicitRatingEffects {
         this._actions$.pipe(
             ofType(StoreAction.IMPLICIT_RATING.UPSERT),
             switchMap((action) =>
-                this._implicitRatingService.upsert(action.rating).pipe(
-                    map((rating) =>
-                        StoreAction.IMPLICIT_RATING.UPSERT_SUCCESS({
-                            rating: rating,
-                        }),
-                    ),
-                ),
+                this._implicitRatingService
+                    .upsert(action.rating)
+                    .pipe(map(() => StoreAction.IMPLICIT_RATING.LOAD())),
             ),
         ),
     )
