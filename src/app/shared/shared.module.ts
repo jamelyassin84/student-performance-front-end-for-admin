@@ -29,9 +29,6 @@ import {appEffects} from './app.effects'
 const components = [AppHeaderComponent]
 
 const modules = [
-    // ...appEffects,
-    // ...appStateModules,
-
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -68,7 +65,7 @@ const directives = []
 
 @NgModule({
     declarations: [...components, ...pipes],
-    imports: [...modules],
     exports: [...modules, ...components, ...pipes],
+    imports: [...modules, ...appEffects, ...appStateModules],
 })
 export class SharedModule {}

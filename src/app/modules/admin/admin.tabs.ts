@@ -1,4 +1,4 @@
-import { FuseNavigationItem } from '@fuse/components/navigation';
+import {FuseNavigationItem} from '@fuse/components/navigation'
 
 export const adminTabs: FuseNavigationItem[] = [
     {
@@ -23,10 +23,17 @@ export const adminTabs: FuseNavigationItem[] = [
         link: '/survey',
     },
     {
-        id: 'guideance-request',
+        id: 'guidance-request',
         title: 'Guidance Request',
         type: 'basic',
         icon: 'email',
         link: '/guidance-request',
     },
-];
+    {
+        id: '5',
+        title: 'Implicit Ratings',
+        type: 'basic',
+        icon: 'star',
+        link: '/implicit-ratings',
+    },
+]

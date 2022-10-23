@@ -1,24 +1,14 @@
-import { Route } from '@angular/router';
-import { AuthGuard } from 'app/core/auth/guards/auth.guard';
-import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
-import { LayoutComponent } from 'app/layout/layout.component';
-import { InitialDataResolver } from 'app/app.resolvers';
+import {Route} from '@angular/router'
+import {AuthGuard} from 'app/core/auth/guards/auth.guard'
+import {NoAuthGuard} from 'app/core/auth/guards/noAuth.guard'
+import {LayoutComponent} from 'app/layout/layout.component'
+import {InitialDataResolver} from 'app/app.resolvers'
 
-// @formatter:off
-/* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-    // Redirect empty path to '/example'
-    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+    {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
 
-    // Redirect signed in user to the '/example'
-    //
-    // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
-    // path. Below is another redirection for that path to redirect the user to the desired
-    // location. This is a small convenience to keep all main routes together here on this file.
-    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboard' },
+    {path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboard'},
 
-    // Auth routes for guests
     {
         path: '',
         canActivate: [NoAuthGuard],
@@ -53,20 +43,19 @@ export const appRoutes: Route[] = [
                 path: 'sign-in',
                 loadChildren: () =>
                     import('app/modules/auth/sign-in/sign-in.module').then(
-                        (m) => m.AuthSignInModule
+                        (m) => m.AuthSignInModule,
                     ),
             },
             {
                 path: 'sign-up',
                 loadChildren: () =>
                     import('app/modules/auth/sign-up/sign-up.module').then(
-                        (m) => m.AuthSignUpModule
+                        (m) => m.AuthSignUpModule,
                     ),
             },
         ],
     },
 
-    // Auth routes for authenticated users
     {
         path: '',
         canActivate: [AuthGuard],
@@ -80,7 +69,7 @@ export const appRoutes: Route[] = [
                 path: 'sign-out',
                 loadChildren: () =>
                     import('app/modules/auth/sign-out/sign-out.module').then(
-                        (m) => m.AuthSignOutModule
+                        (m) => m.AuthSignOutModule,
                     ),
             },
             {
@@ -93,7 +82,6 @@ export const appRoutes: Route[] = [
         ],
     },
 
-    // Landing routes
     {
         path: '',
         component: LayoutComponent,
@@ -105,13 +93,12 @@ export const appRoutes: Route[] = [
                 path: 'home',
                 loadChildren: () =>
                     import('app/modules/landing/home/home.module').then(
-                        (m) => m.LandingHomeModule
+                        (m) => m.LandingHomeModule,
                     ),
             },
         ],
     },
 
-    // Admin routes
     {
         path: '',
         canActivate: [AuthGuard],
@@ -125,28 +112,28 @@ export const appRoutes: Route[] = [
                 path: 'example',
                 loadChildren: () =>
                     import('app/modules/admin/example/example.module').then(
-                        (m) => m.ExampleModule
+                        (m) => m.ExampleModule,
                     ),
             },
             {
                 path: 'dashboard',
                 loadChildren: () =>
                     import('app/modules/admin/dashboard/dashboard.module').then(
-                        (module) => module.DashboardModule
+                        (module) => module.DashboardModule,
                     ),
             },
             {
                 path: 'students',
                 loadChildren: () =>
                     import('app/modules/admin/students/students.module').then(
-                        (module) => module.StudentsModule
+                        (module) => module.StudentsModule,
                     ),
             },
             {
                 path: 'survey',
                 loadChildren: () =>
                     import('app/modules/admin/survey/survey.module').then(
-                        (module) => module.SurveyModule
+                        (module) => module.SurveyModule,
                     ),
             },
             {
@@ -156,6 +143,13 @@ export const appRoutes: Route[] = [
                         'app/modules/admin/guidance-request/guidance-request.module'
                     ).then((module) => module.GuidanceRequestModule),
             },
+            {
+                path: 'implicit-ratings',
+                loadChildren: () =>
+                    import(
+                        'app/modules/admin/implicit-rating/implicit-rating.module'
+                    ).then((module) => module.ImplicitRatingModule),
+            },
         ],
     },
-];
+]

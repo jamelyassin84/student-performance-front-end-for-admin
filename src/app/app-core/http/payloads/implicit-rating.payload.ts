@@ -1,10 +1,12 @@
-import { FormArray, FormControl } from '@angular/forms';
+import {FormArray, FormControl} from '@angular/forms'
 
 export interface ImplicitRatingPayload {
-    title: FormControl<string>;
-    recommendations: FormArray<FormControl<RecommendationPayload>>;
+    id?: FormControl<string>
+    title: FormControl<string>
+    average: FormControl<string>
+    recommendations: FormArray<FormControl<RecommendationPayload>>
 }
 
 export interface RecommendationPayload {
-    title: FormControl<string>;
+    title: FormControl<string>
 }

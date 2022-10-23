@@ -1,1 +1,39 @@
-<p>implicit-rating-table works!</p>
+<table *ngIf="ratings" class="min-w-240 overflow-y-visible">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Question</th>
+            <th>Type</th>
+            <th>Show on Website</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody
+        *ngIf="ratings.length !== 0"
+        [@listAnimation]="currentForm.questions.length"
+    >
+        <tr
+            *ngFor="let rating of ratings; trackBy: trackByFn"
+            class="border-t border-zinc-200 text-center hover:bg-slate-50"
+        >
+            <td>{{ rating.title }}</td>
+            <td>{{ rating.average }}</td>
+
+            <td>
+                <button mat-button [matMenuTriggerFor]="menu">
+                    <mat-icon svgIcon="mat_outline:more_horiz"></mat-icon>
+                </button>
+
+                <mat-menu #menu="matMenu">
+                    <button (click)="edit(rating)" mat-menu-item>
+                        Edit Implicit Rating
+                    </button>
+
+                    <button (click)="remove(rating)" mat-menu-item>
+                        Remove
+                    </button>
+                </mat-menu>
+            </td>
+        </tr>
+    </tbody>
+</table>

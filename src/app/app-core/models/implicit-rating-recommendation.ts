@@ -3,5 +3,6 @@ import {ImplicitRatingRecommendation} from './implicit-rating.model'
 
 export interface ImplicitRating extends PHPBaseModel {
     title: string
+    average: number
     recommendations: ImplicitRatingRecommendation[]
 }

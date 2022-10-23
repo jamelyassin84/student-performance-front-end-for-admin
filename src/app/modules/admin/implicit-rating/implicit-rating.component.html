@@ -1,1 +1,24 @@
-<p>implicit-rating works!</p>
+<div *ngIf="ratings$ | async as ratings" class="flex flex-col w-full">
+    <div @slideInTop class="flex flex-col w-full">
+        <app-header
+            class="w-full"
+            pageTitle="Implicit Ratings"
+            subtitle="Ratings that will Show on student's Survey Results"
+            icon="star"
+        ></app-header>
+    </div>
+
+    <ul class="flex flex-wrap bg-white">
+        <li class="ml-auto">
+            <button
+                (click)="addRating()"
+                class="text-white bg-blue-800 px-10 py-3 hover:bg-blue-900 flex items-center"
+            >
+                <mat-icon class="text-white" svgIcon="add"></mat-icon>
+                Add Rating
+            </button>
+        </li>
+    </ul>
+
+    <implicit-rating-table [ratings]="ratings"></implicit-rating-table>
+</div>

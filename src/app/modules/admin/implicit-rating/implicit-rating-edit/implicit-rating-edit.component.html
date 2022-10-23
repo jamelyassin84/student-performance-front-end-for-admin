@@ -1,1 +1,98 @@
-<p>implicit-rating-edit works!</p>
+<div class="w-screen p-5 md:w-auto md:p-0">
+    <div class="flex border-b border-b-gray-200 pb-4">
+        <h1 class="text-xl">New Rating</h1>
+
+        <mat-icon
+            id="close-btn"
+            role="button"
+            mat-button
+            mat-dialog-close
+            svgIcon="feather:x"
+            class="ml-auto bi bi-x-lg text-2xl hover:text-rose-600 text-slate-900"
+        ></mat-icon>
+    </div>
+
+    <form [formGroup]="implicitRatingForm" class="form w-full">
+        <mat-form-field class="w-full">
+            <mat-label>Title</mat-label>
+            <input formControlName="title" matInput placeholder="Excellent" />
+            <mat-error>Title is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label> Min Average</mat-label>
+            <input
+                formControlName="average"
+                type="number"
+                matInput
+                placeholder="Excellent"
+            />
+            <mat-error>Min Average is Required</mat-error>
+        </mat-form-field>
+
+        <div class="flex items-center">
+            <div class="text-xl font-bold">Recommendations</div>
+
+            <button
+                mat-icon-button
+                class="ml-auto"
+                (click)="addRecommendation()"
+                matTooltip="Add Recommendations"
+            >
+                <mat-icon svgIcon="feather:plus-circle"></mat-icon>
+            </button>
+        </div>
+
+        <div
+            formArrayName="recommendations"
+            [@listAnimation]="recommendationControls.length"
+        >
+            <ng-container
+                [formGroupName]="recommendationIndex"
+                *ngFor="
+                    let recommendation of recommendationControls;
+                    trackBy: trackByFn;
+                    let recommendationIndex = index
+                "
+            >
+                <mat-form-field class="w-full">
+                    <mat-label
+                        >Recommendation {{ recommendationIndex + 1 }}</mat-label
+                    >
+                    <input
+                        formControlName="title"
+                        matInput
+                        placeholder="Excellent"
+                    />
+
+                    <button
+                        matSuffix
+                        mat-icon-button
+                        (click)="removeRecommendation(recommendationIndex)"
+                        [matTooltip]="
+                            'Remove Recommendation ' + (recommendationIndex + 1)
+                        "
+                    >
+                        <mat-icon svgIcon="feather:trash"></mat-icon>
+                    </button>
+
+                    <mat-error>Title is Required</mat-error>
+                </mat-form-field>
+            </ng-container>
+        </div>
+    </form>
+
+    <div mat-dialog-actions class="flex items-center">
+        <button class="ml-auto text-slate-400" mat-button mat-dialog-close>
+            Close
+        </button>
+
+        <button
+            (click)="save()"
+            class="ml-2 text-white rounded-sm px-10 bg-blue-800 hover:bg-blue-900"
+            mat-button
+        >
+            <span> Save </span>
+        </button>
+    </div>
+</div>
