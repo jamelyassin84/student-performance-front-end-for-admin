@@ -1,5 +1,5 @@
 <div class="w-screen p-5 md:w-auto md:p-0">
-    <div class="flex border-b border-b-gray-200 pb-4">
+    <div class="flex pb-4 border-b border-b-gray-200">
         <h1 class="text-xl">New Rating</h1>
 
         <mat-icon
@@ -8,11 +8,11 @@
             mat-button
             mat-dialog-close
             svgIcon="feather:x"
-            class="ml-auto bi bi-x-lg text-2xl hover:text-rose-600 text-slate-900"
+            class="ml-auto text-2xl bi bi-x-lg hover:text-rose-600 text-slate-900"
         ></mat-icon>
     </div>
 
-    <form [formGroup]="implicitRatingForm" class="form w-full">
+    <form [formGroup]="implicitRatingForm" class="w-full form">
         <mat-form-field class="w-full">
             <mat-label>Title</mat-label>
             <input formControlName="title" matInput placeholder="Excellent" />
@@ -83,13 +83,18 @@
     </form>
 
     <div mat-dialog-actions class="flex items-center">
-        <button class="ml-auto text-slate-400" mat-button mat-dialog-close>
+        <button
+            id="close"
+            mat-button
+            mat-dialog-close
+            class="ml-auto text-slate-400"
+        >
             Close
         </button>
 
         <button
             (click)="save()"
-            class="ml-2 text-white rounded-sm px-10 bg-blue-800 hover:bg-blue-900"
+            class="px-10 ml-2 text-white bg-blue-800 rounded-sm hover:bg-blue-900"
             mat-button
         >
             <span> Add </span>

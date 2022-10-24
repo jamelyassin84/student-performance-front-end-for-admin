@@ -61,17 +61,18 @@ export class ImplicitRatingAddComponent implements OnInit {
         if (this.implicitRatingForm.invalid) {
             return
         }
-
         this.implicitRatingForm.disable()
-
-        console.log(this.implicitRatingForm.value)
         this._store.dispatch(
             StoreAction.IMPLICIT_RATING.UPSERT({
                 rating: this.implicitRatingForm.value as any,
             }),
         )
-
         this.implicitRatingForm.enable()
+        this.closeModal()
+    }
+
+    closeModal() {
+        document.getElementById('close')?.click()
     }
 
     trackByFn(index: number, item: any): any {

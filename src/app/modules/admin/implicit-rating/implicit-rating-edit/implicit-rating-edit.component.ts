@@ -91,6 +91,12 @@ export class ImplicitRatingEditComponent implements OnInit {
         )
 
         this.implicitRatingForm.enable()
+
+        this.closeModal()
+    }
+
+    closeModal() {
+        document.getElementById('close')?.click()
     }
 
     trackByFn(index: number, item: any): any {
