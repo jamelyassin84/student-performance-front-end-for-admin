@@ -1,10 +1,10 @@
-import { GuidanceRequest } from './../../../app-core/models/guidance-request.model';
-import { GuidanceRequestEditComponent } from './guidance-request-edit/guidance-request-edit.component';
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { dbwAnimations } from '@global_packages/animations/animation.api';
-import { GuidanceRequestService } from './guidance-request.service';
-import { Subject, takeUntil } from 'rxjs';
+import {GuidanceRequest} from './../../../app-core/models/guidance-request.model'
+import {GuidanceRequestEditComponent} from './guidance-request-edit/guidance-request-edit.component'
+import {Component, OnInit} from '@angular/core'
+import {MatDialog} from '@angular/material/dialog'
+import {dbwAnimations} from '@global_packages/animations/animation.api'
+import {GuidanceRequestService} from './guidance-request.service'
+import {Subject, takeUntil} from 'rxjs'
 
 @Component({
     selector: 'guidance-request',
@@ -15,47 +15,55 @@ import { Subject, takeUntil } from 'rxjs';
 export class GuidanceRequestComponent implements OnInit {
     constructor(
         private _modal: MatDialog,
-        private _guidanceRequestService: GuidanceRequestService
+        private _guidanceRequestService: GuidanceRequestService,
     ) {}
 
-    guidanceRequests: GuidanceRequest[] = [];
+    guidanceRequests: GuidanceRequest[] = []
 
-    unsubscribe$: Subject<any> = new Subject();
+    unsubscribe$: Subject<any> = new Subject()
 
     ngOnInit(): void {
         this._guidanceRequestService.get().subscribe((guidanceRequests) => {
-            this.guidanceRequests = Object.values(guidanceRequests);
-        });
+            this.guidanceRequests = Object.values(guidanceRequests)
+        })
 
         this._guidanceRequestService.editedData$
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((data) => {
-                const guidance = this.guidanceRequests.find(
-                    (request) => request.id === request.id
-                );
+                location.reload()
 
-                const formIndex = this.guidanceRequests.findIndex(
-                    (request) => request.id === guidance.id
-                );
+                // const guidance = this.guidanceRequests.find(
+                //     (request) => request.id === request.id,
+                // )
 
-                this.guidanceRequests[formIndex] = {
-                    ...data,
-                };
-            });
+                // if (guidance) {
+                //     const index = this.guidanceRequests.findIndex(
+                //         (request) => request.id === guidance.id,
+                //     )
+
+                //     console.log(index)
+
+                //     if (index >= 0) {
+                //         this.guidanceRequests[index] = {
+                //             ...data,
+                //         }
+                //     }
+                // }
+            })
     }
 
     ngOnDestroy(): void {
-        this.unsubscribe$.next(null);
+        this.unsubscribe$.next(null)
 
-        this.unsubscribe$.complete();
+        this.unsubscribe$.complete()
     }
 
     updateGPA(request: any) {
-        this._guidanceRequestService.current$.next(request);
+        this._guidanceRequestService.current$.next(request)
 
         this._modal.open(GuidanceRequestEditComponent, {
             hasBackdrop: true,
             panelClass: ['md:w-1/3', 'w-full'],
-        });
+        })
     }
 }

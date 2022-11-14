@@ -1,14 +1,14 @@
-<div class="flex flex-col w-full">
+<div *ngIf="users$ | async as users" class="flex flex-col w-full">
     <div @slideInTop class="flex flex-col w-full">
         <app-header
             class="w-full"
-            pageTitle="Students"
+            [pageTitle]="'Students(' + users.length + ')'"
             subtitle="List of students that registered in the system"
             icon="account_circle"
         ></app-header>
     </div>
 
-    <!-- <div class="flex bg-white py-3 px-5 items-center">
+    <!-- <div class="flex items-center px-5 py-3 bg-white">
         <div class="text-2xl font-bold">Filters</div>
 
         <div class="ml-auto">
@@ -82,34 +82,34 @@
     </div> -->
 
     <div
-        class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-none overflow-hidden"
+        class="flex flex-col flex-auto p-6 overflow-hidden rounded-none shadow sm:col-span-6 bg-card"
     >
         <div class="flex flex-col flex-auto mt-5 overflow-x-auto">
-            <table class="min-w-240 overflow-y-visible">
+            <table class="overflow-y-visible min-w-240">
                 <thead>
                     <tr>
-                        <th >Student Name</th>
-                        <th >Email</th>
-                        <th >Department</th>
-                        <th >Degree</th>
-                        <th >Course</th>
-                        <th >Major</th>
-                        <th >Average Performance</th>
-                        <th >Completed Surveys</th>
+                        <th>Student Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Degree</th>
+                        <th>Course</th>
+                        <th>Major</th>
+                        <th>Average Performance</th>
+                        <th>Completed Surveys</th>
                     </tr>
                 </thead>
-                <tbody [@listAnimation]="(users$ | async).length">
+                <tbody>
                     <tr
-                        *ngFor="let user of users$ | async"
-                        class="border-t border-zinc-200 text-center hover:bg-slate-50"
+                        *ngFor="let user of users"
+                        class="text-center border-t border-zinc-200 hover:bg-slate-50"
                     >
                         <td>{{ user.student.name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.student.department }}</td>
                         <td>{{ user.student.degree }}</td>
                         <td>{{ user.student.course }}</td>
-                        <td>{{ user.student.major || "N/A" }}</td>
-                        <td class="text-emerald-500 font-extrabold">
+                        <td>{{ user.student.major || 'N/A' }}</td>
+                        <td class="font-extrabold text-emerald-500">
                             {{ user.performances | to_average_performance }}
                         </td>
                         <td>{{ user.performances.length }}</td>

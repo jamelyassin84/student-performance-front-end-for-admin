@@ -13,19 +13,19 @@
         [analytics]="analytics"
     ></dashboard-top-cards>
 
-    <div @slideInBottom class="flex flex-col w-full px-10 bg-white pt-10">
+    <div @slideInBottom class="flex flex-col w-full px-10 pt-10 bg-white">
         <dashboard-chart-list></dashboard-chart-list>
 
-        <div class="font-bold text-xl">Top Students (Psychometric)</div>
-        <div class="text-gray-500 mb-10">
+        <div class="text-xl font-bold">Top Students (Psychometric)</div>
+        <div class="mb-10 text-gray-500">
             These students are sorted based on Psychometric Scores.
         </div>
 
         <div
-            class="sm:col-span-6 flex flex-col flex-auto bg-card overflow-hidden"
+            class="flex flex-col flex-auto overflow-hidden sm:col-span-6 bg-card"
         >
             <div class="flex flex-col flex-auto overflow-x-auto">
-                <table class="min-w-240 overflow-y-visible">
+                <table class="overflow-y-visible min-w-240">
                     <thead>
                         <tr>
                             <th>Student Name</th>
@@ -41,15 +41,15 @@
                     <tbody [@listAnimation]="(users$ | async).length">
                         <tr
                             *ngFor="let user of users$ | async"
-                            class="border-t border-zinc-200 text-center hover:bg-slate-50"
+                            class="text-center border-t border-zinc-200 hover:bg-slate-50"
                         >
                             <td>{{ user.student.name }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.student.department }}</td>
                             <td>{{ user.student.degree }}</td>
                             <td>{{ user.student.course }}</td>
-                            <td>{{ user.student.major || "N/A" }}</td>
-                            <td class="text-emerald-500 font-extrabold">
+                            <td>{{ user.student.major || 'N/A' }}</td>
+                            <td class="font-extrabold text-emerald-500">
                                 {{ user.performances | to_average_performance }}
                             </td>
                             <td>{{ user.performances.length }}</td>

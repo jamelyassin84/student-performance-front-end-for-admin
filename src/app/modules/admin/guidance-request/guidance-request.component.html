@@ -26,7 +26,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody [@listAnimation]="guidanceRequests.length">
+                <tbody>
                     <ng-container *ngFor="let request of guidanceRequests">
                         <tr
                             *ngIf="request.student"
@@ -36,7 +36,7 @@
                             <td>{{ request.student.department }}</td>
                             <td>{{ request.student.degree }}</td>
                             <td>{{ request.student.course }}</td>
-                            <td>{{ request.student.major || "N/A" }}</td>
+                            <td>{{ request.student.major || 'N/A' }}</td>
                             <td>
                                 {{ request.student.performance.performance }}
                             </td>
