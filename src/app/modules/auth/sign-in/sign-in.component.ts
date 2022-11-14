@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core'
+import {
+    UntypedFormBuilder,
+    UntypedFormGroup,
+    NgForm,
+    Validators,
+} from '@angular/forms'
+import {ActivatedRoute, Router} from '@angular/router'
+import {fuseAnimations} from '@fuse/animations'
+import {FuseAlertType} from '@fuse/components/alert'
+import {AuthService} from 'app/core/auth/auth.service'
 
 @Component({
     selector: 'auth-sign-in',
@@ -12,14 +17,14 @@ import { AuthService } from 'app/core/auth/auth.service';
     animations: fuseAnimations,
 })
 export class AuthSignInComponent implements OnInit {
-    @ViewChild('signInNgForm') signInNgForm: NgForm;
+    @ViewChild('signInNgForm') signInNgForm: NgForm
 
-    alert: { type: FuseAlertType; message: string } = {
+    alert: {type: FuseAlertType; message: string} = {
         type: 'success',
         message: '',
-    };
-    form: UntypedFormGroup;
-    showAlert: boolean = false;
+    }
+    form: UntypedFormGroup
+    showAlert: boolean = false
 
     /**
      * Constructor
@@ -28,7 +33,7 @@ export class AuthSignInComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _authService: AuthService,
         private _formBuilder: UntypedFormBuilder,
-        private _router: Router
+        private _router: Router,
     ) {}
 
     // -----------------------------------------------------------------------------------------------------
@@ -45,9 +50,9 @@ export class AuthSignInComponent implements OnInit {
                 'admin@cpu.edu.ph',
                 [Validators.required, Validators.email],
             ],
-            password: ['admin', Validators.required],
+            password: ['', Validators.required],
             rememberMe: [''],
-        });
+        })
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -60,14 +65,14 @@ export class AuthSignInComponent implements OnInit {
     signIn(): void {
         // Return if the form is invalid
         if (this.form.invalid) {
-            return;
+            return
         }
 
         // Disable the form
-        this.form.disable();
+        this.form.disable()
 
         // Hide the alert
-        this.showAlert = false;
+        this.showAlert = false
 
         // Sign in
         this._authService.signIn(this.form.value).subscribe(
@@ -78,28 +83,28 @@ export class AuthSignInComponent implements OnInit {
                 // routing file and we don't have to touch here.
                 const redirectURL =
                     this._activatedRoute.snapshot.queryParamMap.get(
-                        'redirectURL'
-                    ) || '/signed-in-redirect';
+                        'redirectURL',
+                    ) || '/signed-in-redirect'
 
                 // Navigate to the redirect url
-                this._router.navigateByUrl(redirectURL);
+                this._router.navigateByUrl(redirectURL)
             },
             (response) => {
                 // Re-enable the form
-                this.form.enable();
+                this.form.enable()
 
                 // Reset the form
-                this.signInNgForm.resetForm();
+                this.signInNgForm.resetForm()
 
                 // Set the alert
                 this.alert = {
                     type: 'error',
                     message: 'Wrong email or password',
-                };
+                }
 
                 // Show the alert
-                this.showAlert = true;
-            }
-        );
+                this.showAlert = true
+            },
+        )
     }
 }

@@ -31,7 +31,7 @@ export const adminTabs: FuseNavigationItem[] = [
     },
     {
         id: '5',
-        title: 'Implicit Ratings',
+        title: 'Minimum Grades',
         type: 'basic',
         icon: 'star',
         link: '/implicit-ratings',
