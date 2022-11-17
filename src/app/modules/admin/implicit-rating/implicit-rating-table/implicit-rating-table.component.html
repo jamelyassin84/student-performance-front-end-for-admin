@@ -1,20 +1,20 @@
 <ng-container *ngIf="ratings">
     <div
-        class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-none overflow-hidden"
+        class="flex flex-col flex-auto p-6 overflow-hidden rounded-none shadow sm:col-span-6 bg-card"
     >
         <div class="flex flex-col flex-auto mt-5 overflow-x-auto">
-            <table class="min-w-240 overflow-y-visible">
+            <table class="overflow-y-visible min-w-240">
                 <thead>
                     <tr>
                         <th>Title</th>
-                        <th>Question</th>
+                        <th>Minimum Grade</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody [@listAnimation]="ratings.length">
                     <tr
                         *ngFor="let rating of ratings; trackBy: trackByFn"
-                        class="border-t border-zinc-200 text-center hover:bg-slate-50"
+                        class="text-center border-t border-zinc-200 hover:bg-slate-50"
                     >
                         <td>{{ rating.title }}</td>
                         <td>{{ rating.average }}</td>
