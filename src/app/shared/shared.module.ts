@@ -25,6 +25,7 @@ import {SVMPredictPipe} from 'app/app-core/pipes/svm.pipe'
 import {ToOptimizedRegressionPipe} from 'app/app-core/pipes/optimized-regression.pipe'
 import {appStateModules} from './app.state'
 import {appEffects} from './app.effects'
+import {SortByTopeStudentPipe} from 'app/app-core/pipes/sort-by-top-student.pipe'
 
 const components = [AppHeaderComponent]
 
@@ -59,6 +60,7 @@ const pipes = [
     PredictPipe,
     SVMPredictPipe,
     ToOptimizedRegressionPipe,
+    SortByTopeStudentPipe,
 ]
 
 const directives = []

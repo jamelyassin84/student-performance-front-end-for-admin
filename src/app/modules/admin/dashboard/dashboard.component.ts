@@ -6,6 +6,7 @@ import {AnalyticsService} from 'app/app-core/store/analytics/analytics.service'
 import {slugify} from '@global_packages/helpers/helpers'
 import {Router} from '@angular/router'
 import {StudentService, User} from 'app/app-core/services/student.service'
+import {sort_by_top_student} from 'app/app-core/pipes/sort-by-top-student.pipe'
 
 @Component({
     selector: 'app-dashboard',
@@ -48,7 +49,11 @@ export class DashboardComponent implements OnInit {
         this._studentService
             .get()
             .subscribe((users) =>
-                this.users$.next(users.filter((user, index) => index <= 10)),
+                this.users$.next(
+                    sort_by_top_student(users).filter(
+                        (user, index) => index <= 10,
+                    ),
+                ),
             )
     }
 
