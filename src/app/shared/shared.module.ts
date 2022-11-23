@@ -20,7 +20,6 @@ import {AppHeaderComponent} from 'app/components/app-header/app-header.component
 import {MatRadioModule} from '@angular/material/radio'
 import {HasDataPipe} from '@global_packages/pipes/has-data.pipe'
 import {ToAveragePerformancePipe} from 'app/app-core/pipes/to-avarage-perfromance.pipe'
-import {PredictPipe} from 'app/app-core/pipes/regression.pipe'
 import {SVMPredictPipe} from 'app/app-core/pipes/svm.pipe'
 import {ToOptimizedRegressionPipe} from 'app/app-core/pipes/optimized-regression.pipe'
 import {appStateModules} from './app.state'
@@ -57,7 +56,6 @@ const pipes = [
     HasDataPipe,
     EmptyPipe,
     ToAveragePerformancePipe,
-    PredictPipe,
     SVMPredictPipe,
     ToOptimizedRegressionPipe,
     SortByTopeStudentPipe,

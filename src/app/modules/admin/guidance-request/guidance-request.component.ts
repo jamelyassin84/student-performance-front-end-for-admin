@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog'
 import {dbwAnimations} from '@global_packages/animations/animation.api'
 import {GuidanceRequestService} from './guidance-request.service'
 import {Subject, takeUntil} from 'rxjs'
+import {RegressionService} from 'app/app-core/services/regression.service'
 
 @Component({
     selector: 'guidance-request',
@@ -16,7 +17,10 @@ export class GuidanceRequestComponent implements OnInit {
     constructor(
         private _modal: MatDialog,
         private _guidanceRequestService: GuidanceRequestService,
-    ) {}
+        private _regressionService: RegressionService,
+    ) {
+        this._regressionService.init()
+    }
 
     guidanceRequests: GuidanceRequest[] = []
 

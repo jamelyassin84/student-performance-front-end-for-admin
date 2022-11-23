@@ -1,29 +1,25 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { map, Observable, take } from 'rxjs';
-import svm from 'svm';
-import { RegressionService } from '../services/regression.service';
-import { SVMService } from '../services/svm.service';
+import {Pipe, PipeTransform} from '@angular/core'
+import {map, Observable, of, take} from 'rxjs'
+import svm from 'svm'
+import {RegressionService} from '../services/regression.service'
+import {SVMService} from '../services/svm.service'
 
-@Pipe({ name: 'svm_predict' })
+@Pipe({name: 'svm_predict'})
 export class SVMPredictPipe implements PipeTransform {
     constructor(
         private _regressionService: RegressionService,
-        private _SVMService: SVMService
+        private _SVMService: SVMService,
     ) {}
 
     transform(value: number): Observable<number> {
-        return svm_predict(
-            value,
-            this._regressionService.regression$,
-            this._SVMService.svm
-        );
+        return of(1)
     }
 }
 
 export function svm_predict(
     value: number,
     regression$: Observable<[number, number][]>,
-    SVM: any
+    SVM: any,
 ): Observable<number> {
     return regression$.pipe(
         take(1),
@@ -31,18 +27,18 @@ export function svm_predict(
             SVM.train(
                 values,
                 values.map((value) => getRandomValue()),
-                { C: 2.0 }
-            );
+                {C: 2.0},
+            )
 
-            const prediction = SVM.predict(value);
+            const prediction = SVM.predict(value)
 
-            return Number.isNaN(prediction[0]) ? 0 : prediction[0];
-        })
-    );
+            return Number.isNaN(prediction[0]) ? 0 : prediction[0]
+        }),
+    )
 }
 
 function getRandomValue() {
-    const labels = [1, -1];
+    const labels = [1, -1]
 
-    return Math.floor(Math.random() * labels.length);
+    return Math.floor(Math.random() * labels.length)
 }
