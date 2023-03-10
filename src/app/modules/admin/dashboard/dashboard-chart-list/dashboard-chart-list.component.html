@@ -1,3 +1,18 @@
+<div class="flex">
+    <mat-select
+        style="width: 249px"
+        class="ml-auto mr-2"
+        [(ngModel)]="college"
+        (selectionChange)="onFilter()"
+    >
+        <div>Department</div>
+
+        <mat-option [value]="item" *ngFor="let item of FILTERS">{{
+            item
+        }}</mat-option>
+    </mat-select>
+</div>
+
 <div
     *ngIf="pieCharts && pieCharts.length !== 0"
     class="grid w-full grid-cols-1 -ml-20 md:grid-cols-3"
@@ -5,6 +20,5 @@
     <dashboard-chart
         [data]="chart"
         *ngFor="let chart of pieCharts; let i = index"
-        [style.filter]="'hue-rotate(' + i * 220 + 'deg)'"
     ></dashboard-chart>
 </div>

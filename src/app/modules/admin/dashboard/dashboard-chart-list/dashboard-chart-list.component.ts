@@ -1,7 +1,9 @@
+import {empty} from '@global_packages/helpers/helpers'
 import {StudentPerformance} from 'app/app-core/store/performance/performance.model'
 import {Component, OnInit} from '@angular/core'
 import {SurveyPerformanceService} from 'app/app-core/store/performance/performance.service'
 import {TEMPORARY_CHART_CONFIG} from 'app/app-core/models/temporary-chart-config'
+import {DEPARTMENTS1} from 'app/app-core/constants/departments'
 
 @Component({
     selector: 'dashboard-chart-list',
@@ -10,6 +12,10 @@ import {TEMPORARY_CHART_CONFIG} from 'app/app-core/models/temporary-chart-config
 })
 export class DashboardChartListComponent implements OnInit {
     constructor(private _surveyPerformanceService: SurveyPerformanceService) {}
+
+    readonly FILTERS = DEPARTMENTS1.map((department) => department.name)
+
+    college = this.FILTERS[0]
 
     pieCharts: any[] = undefined
 
@@ -30,42 +36,41 @@ export class DashboardChartListComponent implements OnInit {
                     return groups
                 }, {})
 
-                const colleges = [
-                    'College of Computer Studies',
-                    'College of Nursing',
-                    'College of Arts and Sciences',
-                ].filter((college) => Object.keys(groups).includes(college))
+                const colleges = DEPARTMENTS1.map(
+                    (department) => department.name,
+                ).filter((college) => Object.keys(groups).includes(college))
 
-                let temporaryCharts = colleges
-                    .map((department) => {
-                        return {
-                            ...TEMPORARY_CHART_CONFIG,
-                            department: department,
-                        }
-                    })
-                    .filter((chart) =>
-                        Object.keys(groups).includes(chart.department),
-                    )
+                let temporaryCharts = colleges.map((department) => {
+                    return {
+                        ...TEMPORARY_CHART_CONFIG,
+                        department: department,
+                    }
+                })
 
                 Object.values(groups)
                     .reverse()
-                    .forEach(
-                        (currentPerformances: StudentPerformance[], index) => {
-                            const department =
-                                currentPerformances[index].student.department
+                    .forEach((currentPerformances: any[], index) => {
+                        if (empty(currentPerformances[0]?.student)) {
+                            return
+                        }
 
-                            const chartIndex = temporaryCharts.findIndex(
-                                (chart) => chart.department === department,
-                            )
+                        const department =
+                            currentPerformances[0]?.student.department
 
-                            const {labels, series} =
-                                this.processSeriesAndLabels(currentPerformances)
+                        const chartIndex = temporaryCharts.findIndex(
+                            (chart) => chart.department === department,
+                        )
 
-                            temporaryCharts[chartIndex].series = series
-                            temporaryCharts[chartIndex].labels = labels
-                        },
-                    )
-                this.pieCharts = temporaryCharts
+                        const {labels, series} =
+                            this.processSeriesAndLabels(currentPerformances)
+
+                        temporaryCharts[chartIndex].series = series
+                        temporaryCharts[chartIndex].labels = labels
+                    })
+
+                this.pieCharts = temporaryCharts.filter(
+                    (chart) => chart.department === this.college,
+                )
             })
     }
 
@@ -101,5 +106,9 @@ export class DashboardChartListComponent implements OnInit {
             labels: labels,
             series: series,
         }
+    }
+
+    onFilter() {
+        this.ngOnInit()
     }
 }

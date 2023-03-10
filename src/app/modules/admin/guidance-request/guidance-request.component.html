@@ -8,6 +8,47 @@
         ></app-header>
     </div>
 
+    <div class="flex items-center">
+        <mat-select
+            style="width: 249px"
+            class="ml-auto mr-2"
+            [(ngModel)]="filter.gpa"
+            (selectionChange)="onFilter()"
+        >
+            <div>GPA Status</div>
+
+            <mat-option [value]="item" *ngFor="let item of GPA_SELECTIONS">{{
+                item
+            }}</mat-option>
+        </mat-select>
+
+        <mat-form-field class="mr-2" style="width: 249px">
+            <mat-date-range-input [rangePicker]="picker">
+                <input
+                    matStartDate
+                    placeholder="Start date"
+                    [(ngModel)]="filter.from"
+                />
+
+                <input
+                    matEndDate
+                    placeholder="End date"
+                    [(ngModel)]="filter.to"
+                    (dateChange)="onFilter()"
+                />
+            </mat-date-range-input>
+
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+            ></mat-datepicker-toggle>
+
+            <div class="bg-gray-200">
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </div>
+        </mat-form-field>
+    </div>
+
     <div
         class="flex flex-col flex-auto p-6 overflow-hidden rounded-none shadow sm:col-span-6 bg-card"
     >
@@ -28,32 +69,44 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let request of guidanceRequests">
-                        <tr
-                            *ngIf="request.student"
-                            class="text-center border-t border-zinc-200 hover:bg-slate-50"
+                        <ng-container
+                            *ngIf="
+                                (filter.gpa === 'Has GPA' &&
+                                    request.performance.gpa !== 0) ||
+                                (filter.gpa !== 'Has GPA' &&
+                                    request.performance.gpa === 0)
+                            "
                         >
-                            <td>{{ request.student.name }}</td>
-                            <td>{{ request.student.department }}</td>
-                            <td>{{ request.student.degree }}</td>
-                            <td>{{ request.student.course }}</td>
-                            <td>{{ request.student.major || 'N/A' }}</td>
-                            <td>
-                                {{ request.student.performance.performance }}
-                            </td>
-                            <td>{{ request.student.performance.gpa }}</td>
-                            <td>
-                                {{
-                                    request.student.performance.performance
-                                        | to_optimized_regression
-                                }}
-                            </td>
+                            <tr
+                                *ngIf="request.student"
+                                class="text-center border-t border-zinc-200 hover:bg-slate-50"
+                            >
+                                <td>{{ request.student.name }}</td>
+                                <td>{{ request.student.department }}</td>
+                                <td>{{ request.student.degree }}</td>
+                                <td>{{ request.student.course }}</td>
+                                <td>{{ request.student.major || 'N/A' }}</td>
+                                <td>
+                                    {{ request.performance.performance }}
+                                </td>
+                                <td>{{ request.performance.gpa }}</td>
+                                <td>
+                                    {{
+                                        request.performance.performance
+                                            | to_optimized_regression
+                                    }}
+                                </td>
 
-                            <td>
-                                <button (click)="updateGPA(request)" mat-button>
-                                    Update GPA
-                                </button>
-                            </td>
-                        </tr>
+                                <td>
+                                    <button
+                                        (click)="updateGPA(request)"
+                                        mat-button
+                                    >
+                                        Update GPA
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-container>
                     </ng-container>
                 </tbody>
             </table>

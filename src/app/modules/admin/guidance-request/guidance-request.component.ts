@@ -6,6 +6,8 @@ import {dbwAnimations} from '@global_packages/animations/animation.api'
 import {GuidanceRequestService} from './guidance-request.service'
 import {Subject, takeUntil} from 'rxjs'
 import {RegressionService} from 'app/app-core/services/regression.service'
+import {GPAFilterEnum} from 'app/app-core/enum/gpa-filter.enum'
+import * as dayjs from 'dayjs'
 
 @Component({
     selector: 'guidance-request',
@@ -22,44 +24,50 @@ export class GuidanceRequestComponent implements OnInit {
         this._regressionService.init()
     }
 
+    readonly GPA_SELECTIONS = Object.values(GPAFilterEnum)
+
     guidanceRequests: GuidanceRequest[] = []
+
+    filter = {
+        gpa: GPAFilterEnum.HAS_GPA,
+        from: dayjs().startOf('month').format('YYYY-MM-DD'),
+        to: dayjs().format('YYYY-MM-DD'),
+    }
 
     unsubscribe$: Subject<any> = new Subject()
 
     ngOnInit(): void {
-        this._guidanceRequestService.get().subscribe((guidanceRequests) => {
-            this.guidanceRequests = Object.values(guidanceRequests)
-        })
-
-        this._guidanceRequestService.editedData$
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((data) => {
-                location.reload()
-
-                // const guidance = this.guidanceRequests.find(
-                //     (request) => request.id === request.id,
-                // )
-
-                // if (guidance) {
-                //     const index = this.guidanceRequests.findIndex(
-                //         (request) => request.id === guidance.id,
-                //     )
-
-                //     console.log(index)
-
-                //     if (index >= 0) {
-                //         this.guidanceRequests[index] = {
-                //             ...data,
-                //         }
-                //     }
-                // }
-            })
+        this.onFilter()
     }
 
     ngOnDestroy(): void {
         this.unsubscribe$.next(null)
 
         this.unsubscribe$.complete()
+    }
+
+    onFilter() {
+        const filter = {...this.filter}
+
+        for (let key in filter) {
+            if (key === 'from' || key === 'to') {
+                filter[key] = dayjs(filter[key]).add(1, 'day').toJSON()
+            }
+        }
+
+        const payload = new URLSearchParams(filter)
+
+        this._guidanceRequestService
+            .query(`?${payload}`)
+            .subscribe((guidanceRequests) => {
+                this.guidanceRequests = Object.values(guidanceRequests)
+            })
+
+        this._guidanceRequestService.editedData$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((data) => {
+                location.reload()
+            })
     }
 
     updateGPA(request: any) {

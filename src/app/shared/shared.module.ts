@@ -25,6 +25,12 @@ import {ToOptimizedRegressionPipe} from 'app/app-core/pipes/optimized-regression
 import {appStateModules} from './app.state'
 import {appEffects} from './app.effects'
 import {SortByTopeStudentPipe} from 'app/app-core/pipes/sort-by-top-student.pipe'
+import {
+    DefaultMatCalendarRangeStrategy,
+    MatDatepickerModule,
+    MAT_DATE_RANGE_SELECTION_STRATEGY,
+} from '@angular/material/datepicker'
+import {MatNativeDateModule} from '@angular/material/core'
 
 const components = [AppHeaderComponent]
 
@@ -50,6 +56,8 @@ const modules = [
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 ]
 
 const pipes = [
@@ -67,5 +75,11 @@ const directives = []
     declarations: [...components, ...pipes],
     exports: [...modules, ...components, ...pipes],
     imports: [...modules, ...appEffects, ...appStateModules],
+    providers: [
+        {
+            provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+            useClass: DefaultMatCalendarRangeStrategy,
+        },
+    ],
 })
 export class SharedModule {}
